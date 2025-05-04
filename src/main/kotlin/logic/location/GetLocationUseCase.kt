@@ -1,9 +1,12 @@
 package logic.location
 
 import logic.model.Coordinate
+import logic.repository.LocationRepository
 
-class GetLocationUseCase {
+class GetLocationUseCase(
+    private val locationRepository: LocationRepository
+) {
     fun getLocation(cityName: String, country: String): Coordinate {
-        return Coordinate()
+        TODO()
     }
 }
