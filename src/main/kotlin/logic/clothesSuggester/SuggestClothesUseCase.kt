@@ -18,8 +18,7 @@ class SuggestClothesUseCase(private val clothesRepository: ClothesRepository) {
             else -> listOf(ClothType.VERY_LIGHT)
         }
 
-        val types = (tempBasedType).distinct()
-
+        val types = tempBasedType.distinct()
         return types.flatMap { clothesRepository.getClothesByType(it) }
     }
 

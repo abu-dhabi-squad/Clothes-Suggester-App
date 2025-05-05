@@ -25,7 +25,7 @@ class SuggestClothesUseCaseTest{
         // given
         val weather = Weather(
             hourlyTemperatures = List(24) { HourlyTemperature(2f, it) },
-            weatherCondition = WeatherCondition.SNOW_HEAVY // Ignored
+            weatherCondition = WeatherCondition.SNOW_HEAVY
         )
         val expectedClothes = listOf(Cloth(name = "Winter Coat", type = ClothType.HEAVY))
         coEvery { clothesRepository.getClothesByType(ClothType.HEAVY) } returns expectedClothes
