@@ -28,21 +28,24 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }
 kotlin {
     jvmToolchain(17)
 }
 
 val includedPackages = listOf(
-    "squad/abudhabi/data/**",
-    "squad/abudhabi/logic/**"
+    "**/data/**",
+    "**/logic/**"
 )
 
 val excludedPackages = listOf(
-    "squad/abudhabi/di/**",
-    "squad/abudhabi/data/utils/**",
-    "squad/abudhabi/logic/model/**",
-    "squad/abudhabi/logic/exceptions/**"
+    "**/di/**",
+    "**/data/utils/**",
+    "**/data/**/model/**",
+    "**/data/**/datasource/**",
+    "**/logic/model/**",
+    "**/logic/exceptions/**"
 )
 
 tasks.jacocoTestReport {
@@ -50,6 +53,7 @@ tasks.jacocoTestReport {
     reports {
         xml.required.set(true)
         html.required.set(true)
+        csv.required.set(false)
     }
 
     classDirectories.setFrom(
@@ -76,4 +80,38 @@ tasks.jacocoTestCoverageVerification {
             exclude(excludedPackages)
         }
     )
+}
+
+tasks.register("printCoverage") {
+    dependsOn("jacocoTestReport")
+    doLast {
+        val reportFile = file("build/reports/jacoco/test/jacocoTestReport.xml")
+        if (!reportFile.exists()) {
+            println("Coverage report not found.")
+            return@doLast
+        }
+
+        val dbf = javax.xml.parsers.DocumentBuilderFactory.newInstance()
+        dbf.isValidating = false
+        dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
+
+        val db = dbf.newDocumentBuilder()
+        val doc = db.parse(reportFile)
+
+        val counters = doc.getElementsByTagName("counter")
+        var covered = 0
+        var missed = 0
+        for (i in 0 until counters.length) {
+            val node = counters.item(i)
+            val type = node.attributes.getNamedItem("type").nodeValue
+            if (type == "INSTRUCTION") {
+                covered = node.attributes.getNamedItem("covered").nodeValue.toInt()
+                missed = node.attributes.getNamedItem("missed").nodeValue.toInt()
+                break
+            }
+        }
+        val total = covered + missed
+        val percentage = if (total > 0) (covered * 100.0 / total) else 0.0
+        println("Instruction Coverage: %.2f%%".format(percentage))
+    }
 }

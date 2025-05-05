@@ -10,9 +10,8 @@ class LocationRepositoryImpl(
     private val locationMapper: LocationMapper,
 ) : LocationRepository {
     override suspend fun getLocationByCityAndCountry(cityName: String, country: String) : Coordinate {
-        val res = remoteDataSource.getLocationByCityAndCountry(cityName, country)
         return locationMapper.mapDtoToCoordinate(
-            res
+            remoteDataSource.getLocationByCityAndCountry(cityName, country)
         )
     }
 }
