@@ -1,4 +1,4 @@
-package data.location.repository.mapper
+package data.location.mapper
 
 import com.google.common.truth.Truth.assertThat
 import helper.createDtoLocation
@@ -8,12 +8,12 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-class CoordinateMapperImplTest {
+class CoordinateMapperTest {
     private lateinit var coordinateMapper: CoordinateMapper
 
     @BeforeEach
     fun setup() {
-        coordinateMapper = CoordinateMapperImpl()
+        coordinateMapper = CoordinateMapper()
     }
 
     @Test
