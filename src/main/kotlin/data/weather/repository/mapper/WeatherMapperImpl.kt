@@ -2,7 +2,7 @@ package data.weather.repository.mapper
 
 import data.weather.model.DtoWeather
 import data.weather.repository.timeParser.WeatherTimeParser
-import logic.exception.UnKownWeatherCondition
+import logic.exception.UnKownWeatherConditionException
 import logic.model.HourlyTemperature
 import logic.model.Weather
 import logic.model.WeatherCondition
@@ -11,7 +11,9 @@ class WeatherMapperImpl(
     private val weatherTimeParser: WeatherTimeParser
 ) : WeatherMapper {
     override fun mapDtoToWeather(dtoWeather: DtoWeather): Weather {
-        val hourlyTemperature = dtoWeather.hourly.temperature2m.zip(dtoWeather.hourly.time) { temp, time ->
+        val firstDayDate = dtoWeather.hourly.time.first().substringBefore("T")
+        val timeOfTheDay = dtoWeather.hourly.time.filter { it.startsWith(firstDayDate) }
+        val hourlyTemperature = dtoWeather.hourly.temperature2m.zip(timeOfTheDay) { temp, time ->
             HourlyTemperature(temp, weatherTimeParser.getHourFromTimeString(time))
         }
         return Weather(hourlyTemperature, getWeatherForeCast(dtoWeather.current.weatherCode))
@@ -47,7 +49,7 @@ class WeatherMapperImpl(
             95 -> WeatherCondition.THUNDER_STORM
             96 -> WeatherCondition.THUNDER_STORM_HAIL_LIGHT
             99 -> WeatherCondition.THUNDER_STORM_HAIL_HEAVY
-            else -> {throw UnKownWeatherCondition()
+            else -> {throw UnKownWeatherConditionException()
             }
         }
     }
