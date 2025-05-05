@@ -52,8 +52,7 @@ class WeatherMapperImpl : WeatherMapper {
             95 -> WeatherCondition.THUNDER_STORM
             96 -> WeatherCondition.THUNDER_STORM_HAIL_LIGHT
             99 -> WeatherCondition.THUNDER_STORM_HAIL_HEAVY
-            else -> {throw UnKownWeatherConditionException()
-            }
+            else -> {throw UnKownWeatherConditionException() }
         }
     }
 }
