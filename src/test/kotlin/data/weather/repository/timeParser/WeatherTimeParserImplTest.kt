@@ -20,7 +20,7 @@ class WeatherTimeParserImplTest {
         "2025-05-09T08:00,8",
         "2025-05-11T23:00,23"
     )
-    fun `getHourFromTimeString should return hour when the time is in righ format`(time: String, hour: Int) {
+    fun `getHourFromTimeString should return hour when the time is in right format`(time: String, hour: Int) {
         //Given & When
         val res = weatherTimeParser.getHourFromTimeString(time)
         //Then
