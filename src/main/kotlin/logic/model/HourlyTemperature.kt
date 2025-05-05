@@ -1,6 +1,6 @@
 package logic.model
 
 data class HourlyTemperature(
-    val temperature: Float,
+    val temperature: Double,
     val hour: Int,
 )

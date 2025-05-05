@@ -6,7 +6,7 @@ import logic.model.HourlyTemperature
 import logic.model.WeatherCondition
 
 fun createDtoWeather(
-   hourlyTemperatures: List<HourlyTemperature> = listOf(HourlyTemperature(10f, 12)),
+   hourlyTemperatures: List<HourlyTemperature> = listOf(HourlyTemperature(10.0, 12)),
    weatherCondition: WeatherCondition? = WeatherCondition.WINDY,
 ): DtoWeather {
 

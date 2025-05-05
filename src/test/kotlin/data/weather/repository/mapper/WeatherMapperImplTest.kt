@@ -19,8 +19,8 @@ class WeatherMapperImplTest{
 
     @Test
     fun `mapDtoToWeather should return weather`() {
-        val dtoWeather = createDtoWeather(listOf(HourlyTemperature(10f, 12)), WeatherCondition.WINDY)
-        val expectedWeather = Weather(listOf(HourlyTemperature(10f, 12)), WeatherCondition.WINDY)
+        val dtoWeather = createDtoWeather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.WINDY)
+        val expectedWeather = Weather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.WINDY)
         val actualWeather = weatherMapper.mapDtoToWeather(dtoWeather)
         assertThat(actualWeather).isEqualTo(expectedWeather)
     }

@@ -31,7 +31,7 @@ class WeatherRepositoryImplTest {
     fun `getDailyWeatherByCoordinate should return weather when provided valid coordinate`() = runTest {
         // Given
         val coordinate = Coordinate(27.0, 30.0)
-        val weather = Weather(listOf(HourlyTemperature(10f, 12)), WeatherCondition.WINDY)
+        val weather = Weather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.WINDY)
         coEvery { weatherDataSource.getWeatherByCoordinate(any()) } returns createDtoWeather()
         coEvery { weatherMapper.mapDtoToWeather(any()) } returns weather
         // When
@@ -44,7 +44,7 @@ class WeatherRepositoryImplTest {
     fun `getDailyWeatherByCoordinate should throw Exception when datasource throws Exception`() = runTest {
         // Given
         val coordinate = Coordinate(27.0, 30.0)
-        val weather = Weather(listOf(HourlyTemperature(10f, 12)), WeatherCondition.WINDY)
+        val weather = Weather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.WINDY)
         coEvery { weatherDataSource.getWeatherByCoordinate(any()) } throws Exception()
         // When & Then
         assertThrows<Exception> { weatherRepository.getDailyWeatherByCoordinate(coordinate) }
@@ -54,7 +54,7 @@ class WeatherRepositoryImplTest {
     fun `getDailyWeatherByCoordinate should throw Exception when mapper throws Exception`() = runTest {
         // Given
         val coordinate = Coordinate(27.0, 30.0)
-        val weather = Weather(listOf(HourlyTemperature(10f, 12)), WeatherCondition.WINDY)
+        val weather = Weather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.WINDY)
         coEvery { weatherDataSource.getWeatherByCoordinate(any()) } returns createDtoWeather()
         coEvery { weatherMapper.mapDtoToWeather(any()) } throws Exception()
         // When & Then

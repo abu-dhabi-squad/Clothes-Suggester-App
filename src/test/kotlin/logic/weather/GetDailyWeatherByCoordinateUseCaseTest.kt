@@ -29,7 +29,7 @@ class GetDailyWeatherByCoordinateUseCaseTest {
     fun `getDailyWeather should return weather when provided valid coordinate`() = runTest {
         //Given
         val validCoordinate = Coordinate(27.0, 30.0)
-        val weather = Weather(listOf(HourlyTemperature(10f, 12)), WeatherCondition.WINDY)
+        val weather = Weather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.WINDY)
         coEvery { weatherRepository.getDailyWeatherByCoordinate(any()) } returns weather
         //When
         val result = getDailyWeatherByCoordinate.getDailyWeather(validCoordinate)
@@ -54,7 +54,7 @@ class GetDailyWeatherByCoordinateUseCaseTest {
     fun `getDailyWeather should throw Exception when weatherRepository getDailyWeather throw Exception`() = runTest {
         //Given
         val validCoordinate = Coordinate(27.0, 30.0)
-        val weather = Weather(listOf(HourlyTemperature(10f, 12)), WeatherCondition.WINDY)
+        val weather = Weather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.WINDY)
         coEvery { weatherRepository.getDailyWeatherByCoordinate(any()) } throws Exception()
         //When & Then
         assertThrows<Exception> {
