@@ -5,9 +5,9 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import logic.clothesSuggester.SuggestClothesUseCase
 import logic.model.Cloth
 import logic.model.ClothType
+import logic.usecases.clothesSuggester.SuggestClothesUseCase
 import logic.usecases.location.GetCoordinateByCityAndCountryUseCase
 import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
 import main.kotlin.ui.ClothesSuggesterByCityNameUI
