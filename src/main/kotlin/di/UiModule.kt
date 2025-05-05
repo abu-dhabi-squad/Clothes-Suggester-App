@@ -28,4 +28,5 @@ val uiModule = module {
             )
         )
     }
+    single<ClothesSuggesterApp> { ClothesSuggesterApp(get(named("features")),get(),get()) }
 }
