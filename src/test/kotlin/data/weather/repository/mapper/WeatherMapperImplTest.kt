@@ -2,7 +2,6 @@ package data.weather.repository.mapper
 
 import com.google.common.truth.Truth.assertThat
 import data.weather.model.Hourly
-import data.weather.repository.timeParser.WeatherTimeParser
 import helper.createDtoWeather
 import io.mockk.every
 import io.mockk.mockk
@@ -20,12 +19,10 @@ import kotlin.test.Test
 
 class WeatherMapperImplTest {
     private lateinit var weatherMapper: WeatherMapper
-    private lateinit var weatherTimeParser: WeatherTimeParser
 
     @BeforeEach
     fun setup() {
-        weatherTimeParser = mockk(relaxed = true)
-        weatherMapper = WeatherMapperImpl(weatherTimeParser)
+        weatherMapper = WeatherMapperImpl()
     }
 
     @ParameterizedTest
@@ -35,7 +32,6 @@ class WeatherMapperImplTest {
         WeatherCondition: WeatherCondition
     ) {
         //Given
-        every { weatherTimeParser.getHourFromTimeString(any()) } returns 15
         val dtoWeather = createDtoWeather(hourly = Hourly(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)), weatherCode)
         val expectedWeather = Weather(listOf(HourlyTemperature(10.0, 15)), WeatherCondition)
         //When
@@ -45,20 +41,8 @@ class WeatherMapperImplTest {
     }
 
     @Test
-    fun `mapDtoToWeather should throw exception when weatherTimeParser throw exception`() {
-        //Given
-        every { weatherTimeParser.getHourFromTimeString(any()) } throws Exception()
-        val dtoWeather = createDtoWeather(hourly = Hourly(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)), 1)
-        //When & Then
-        assertThrows<Exception> {
-            weatherMapper.mapDtoToWeather(dtoWeather)
-        }
-    }
-
-    @Test
     fun `mapDtoToWeather should throw exception when no forecast found`() {
         //Given
-        every { weatherTimeParser.getHourFromTimeString(any()) } returns 1
         val dtoWeather = createDtoWeather(hourly = Hourly(listOf(10.0), listOf(), listOf(0)), 1)
         //When & Then
         assertThrows<Exception> {
@@ -69,7 +53,6 @@ class WeatherMapperImplTest {
     @Test
     fun `mapDtoToWeather should throw UnKownWeatherConditionException when current weather code is unkown`() {
         //Given
-        every { weatherTimeParser.getHourFromTimeString(any()) } returns 15
         val dtoWeather = createDtoWeather(hourly = Hourly(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)), 100)
         //When & Then
         assertThrows<UnKownWeatherConditionException> {

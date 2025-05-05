@@ -1,22 +1,25 @@
 package data.weather.repository.mapper
 
 import data.weather.model.DtoWeather
-import data.weather.repository.timeParser.WeatherTimeParser
 import logic.exception.UnKownWeatherConditionException
 import logic.model.HourlyTemperature
 import logic.model.Weather
 import logic.model.WeatherCondition
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-class WeatherMapperImpl(
-    private val weatherTimeParser: WeatherTimeParser
-) : WeatherMapper {
+class WeatherMapperImpl : WeatherMapper {
     override fun mapDtoToWeather(dtoWeather: DtoWeather): Weather {
-        val firstDayDate = dtoWeather.hourly.time.first().substringBefore("T")
-        val timeOfTheDay = dtoWeather.hourly.time.filter { it.startsWith(firstDayDate) }
-        val hourlyTemperature = dtoWeather.hourly.temperature2m.zip(timeOfTheDay) { temp, time ->
-            HourlyTemperature(temp, weatherTimeParser.getHourFromTimeString(time))
+        val hourlyTemperature = dtoWeather.hourly.temperature2m.zip(dtoWeather.hourly.time) { temp, time ->
+            HourlyTemperature(temp, getHourFromTimeString(time))
         }
         return Weather(hourlyTemperature, getWeatherForeCast(dtoWeather.current.weatherCode))
+    }
+
+    private fun getHourFromTimeString(time: String): Int {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
+        val dateTime = LocalDateTime.parse(time, formatter)
+        return dateTime.hour
     }
 
     private fun getWeatherForeCast(weatherCode: Int): WeatherCondition {
