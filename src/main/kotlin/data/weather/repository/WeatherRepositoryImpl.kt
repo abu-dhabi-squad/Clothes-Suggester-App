@@ -9,8 +9,9 @@ import logic.repository.WeatherRepository
 class WeatherRepositoryImpl(
     private val remoteDataSource: WeatherDataSource,
     private val weatherMapper: WeatherMapper,
-): WeatherRepository{
+) : WeatherRepository {
     override suspend fun getDailyWeatherByCoordinate(coordinate: Coordinate): Weather {
-        TODO("Not yet implemented")
+        val res = remoteDataSource.getWeatherByCoordinate(coordinate)
+        return weatherMapper.mapDtoToWeather(res)
     }
 }

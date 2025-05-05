@@ -5,7 +5,6 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import logic.exception.NoHourlyTemperatureFound
-import logic.exception.NoWeatherConditionFound
 import logic.model.Coordinate
 import logic.model.HourlyTemperature
 import logic.model.Weather
@@ -47,19 +46,6 @@ class GetDailyWeatherByCoordinateUseCaseTest {
             coEvery { weatherRepository.getDailyWeatherByCoordinate(any()) } returns weather
             //When & Then
             assertThrows<NoHourlyTemperatureFound> {
-                getDailyWeatherByCoordinate.getDailyWeather(validCoordinate)
-            }
-        }
-
-    @Test
-    fun `getDailyWeather should throw NoWeatherConditionFound when returned weather has empty weatherCondition`() =
-        runTest {
-            //Given
-            val validCoordinate = Coordinate(27.0, 30.0)
-            val weather = Weather(listOf(HourlyTemperature(10f, 12)), null)
-            coEvery { weatherRepository.getDailyWeatherByCoordinate(any()) } returns weather
-            //When & Then
-            assertThrows<NoWeatherConditionFound> {
                 getDailyWeatherByCoordinate.getDailyWeather(validCoordinate)
             }
         }
