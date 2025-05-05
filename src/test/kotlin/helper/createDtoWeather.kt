@@ -15,7 +15,7 @@ fun createDtoWeather(
         currentUnits = CurrentUnits("", "", "", ""),
         daily = Daily(listOf(), listOf(), listOf(), listOf()),
         dailyUnits = DailyUnits("", "", "", ""),
-        elevation = 0,
+        elevation = 0.0,
         generationtimeMs = 0.0,
         hourly = hourly,
         hourlyUnits = HourlyUnits("", "", ""),
