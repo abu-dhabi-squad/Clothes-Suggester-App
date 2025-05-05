@@ -10,7 +10,7 @@ class WeatherRepositoryImpl(
     private val remoteDataSource: WeatherDataSource,
     private val weatherMapper: WeatherMapper,
 ): WeatherRepository{
-    override suspend fun getDailyWeather(coordinate: Coordinate): Weather {
+    override suspend fun getDailyWeatherByCoordinate(coordinate: Coordinate): Weather {
         TODO("Not yet implemented")
     }
 }

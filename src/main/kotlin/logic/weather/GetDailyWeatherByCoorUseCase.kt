@@ -12,7 +12,7 @@ class GetDailyWeatherByCoordinateUseCase(
     private val weatherRepository: WeatherRepository
 ) {
     suspend fun getDailyWeather(coordinate: Coordinate): Weather {
-        val dailyWeather = weatherRepository.getDailyWeather(coordinate)
+        val dailyWeather = weatherRepository.getDailyWeatherByCoordinate(coordinate)
         if (!isValidHourlyWeather(dailyWeather.hourlyTemperatures)) throw NoHourlyTemperatureFound()
         if (!isValidWeatherCondition(dailyWeather.weatherCondition)) throw NoWeatherConditionFound()
         return dailyWeather

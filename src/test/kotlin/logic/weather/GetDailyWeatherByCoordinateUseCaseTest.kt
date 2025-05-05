@@ -31,7 +31,7 @@ class GetDailyWeatherByCoordinateUseCaseTest {
         //Given
         val validCoordinate = Coordinate(27.0, 30.0)
         val weather = Weather(listOf(HourlyTemperature(10f, 12)), WeatherCondition.WINDY)
-        coEvery { weatherRepository.getDailyWeather(any()) } returns weather
+        coEvery { weatherRepository.getDailyWeatherByCoordinate(any()) } returns weather
         //When
         val result = getDailyWeatherByCoordinate.getDailyWeather(validCoordinate)
         //Then
@@ -44,7 +44,7 @@ class GetDailyWeatherByCoordinateUseCaseTest {
             //Given
             val validCoordinate = Coordinate(27.0, 30.0)
             val weather = Weather(listOf(), WeatherCondition.WINDY)
-            coEvery { weatherRepository.getDailyWeather(any()) } returns weather
+            coEvery { weatherRepository.getDailyWeatherByCoordinate(any()) } returns weather
             //When & Then
             assertThrows<NoHourlyTemperatureFound> {
                 getDailyWeatherByCoordinate.getDailyWeather(validCoordinate)
@@ -57,7 +57,7 @@ class GetDailyWeatherByCoordinateUseCaseTest {
             //Given
             val validCoordinate = Coordinate(27.0, 30.0)
             val weather = Weather(listOf(HourlyTemperature(10f, 12)), null)
-            coEvery { weatherRepository.getDailyWeather(any()) } returns weather
+            coEvery { weatherRepository.getDailyWeatherByCoordinate(any()) } returns weather
             //When & Then
             assertThrows<NoWeatherConditionFound> {
                 getDailyWeatherByCoordinate.getDailyWeather(validCoordinate)
@@ -69,7 +69,7 @@ class GetDailyWeatherByCoordinateUseCaseTest {
         //Given
         val validCoordinate = Coordinate(27.0, 30.0)
         val weather = Weather(listOf(HourlyTemperature(10f, 12)), WeatherCondition.WINDY)
-        coEvery { weatherRepository.getDailyWeather(any()) } throws Exception()
+        coEvery { weatherRepository.getDailyWeatherByCoordinate(any()) } throws Exception()
         //When & Then
         assertThrows<Exception> {
             getDailyWeatherByCoordinate.getDailyWeather(validCoordinate)
