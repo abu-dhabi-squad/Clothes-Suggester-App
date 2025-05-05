@@ -1,7 +1,7 @@
 package data.location.repository
 
 import data.location.datasource.LocationDataSource
-import data.location.repository.mapper.CoordinateMapper
+import data.location.mapper.CoordinateMapper
 import logic.model.Coordinate
 import logic.repository.LocationRepository
 

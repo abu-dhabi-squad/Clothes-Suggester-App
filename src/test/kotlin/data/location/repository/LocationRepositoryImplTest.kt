@@ -3,7 +3,7 @@ package data.location.repository
 import helper.createDtoLocation
 import com.google.common.truth.Truth.assertThat
 import data.location.datasource.LocationDataSource
-import data.location.repository.mapper.CoordinateMapper
+import data.location.mapper.CoordinateMapper
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
