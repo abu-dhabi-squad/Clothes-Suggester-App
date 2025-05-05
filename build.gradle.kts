@@ -22,6 +22,7 @@ dependencies {
     implementation("io.ktor:ktor-client-core:2.3.13")
     implementation("io.ktor:ktor-client-cio:2.3.13")
     implementation("ch.qos.logback:logback-classic:1.5.6")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }
 
 tasks.test {

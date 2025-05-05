@@ -18,11 +18,11 @@ class GetDailyWeatherByCoordinateUseCase(
         return dailyWeather
     }
 
-    private fun isValidHourlyWeather(hourlyTemperatures: List<HourlyTemperature>): Boolean{
+    private fun isValidHourlyWeather(hourlyTemperatures: List<HourlyTemperature>): Boolean {
         return hourlyTemperatures.isNotEmpty()
     }
 
-    private fun isValidWeatherCondition(weatherCondition: WeatherCondition?): Boolean{
+    private fun isValidWeatherCondition(weatherCondition: WeatherCondition?): Boolean {
         return !(weatherCondition == null)
     }
 }
