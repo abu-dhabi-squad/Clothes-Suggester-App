@@ -8,20 +8,13 @@ import logic.repository.ClothesRepository
 
 class SuggestClothesUseCase(private val clothesRepository: ClothesRepository) {
      fun getSuggestedClothes(weather: Weather): List<Cloth> {
-        val avgTemp = weather.hourlyTemperatures.map { it.temperature }.averageOrNull()
-
+        val avgTemp = weather.hourlyTemperatures.map { it.temperature }.average()
         val tempBasedType = when {
-            avgTemp == null -> emptyList()
-            avgTemp < 5 -> listOf(ClothType.HEAVY)
-            avgTemp in 5.0..15.0 -> listOf(ClothType.MEDIUM)
-            avgTemp in 15.1..25.0 -> listOf(ClothType.LIGHT)
-            else -> listOf(ClothType.VERY_LIGHT)
+            avgTemp < 5 -> ClothType.HEAVY
+            avgTemp in 5.0..15.0 -> ClothType.MEDIUM
+            avgTemp in 15.1..25.0 -> ClothType.LIGHT
+            else ->ClothType.VERY_LIGHT
         }
-
-        val types = tempBasedType.distinct()
-        return types.flatMap { clothesRepository.getClothesByType(it) }
+        return clothesRepository.getClothesByType(tempBasedType)
     }
-
-    private fun List<Float>.averageOrNull(): Double? =
-        if (isEmpty()) null else this.average()
 }
