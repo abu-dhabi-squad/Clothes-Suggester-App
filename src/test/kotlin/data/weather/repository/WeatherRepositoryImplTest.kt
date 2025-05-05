@@ -32,7 +32,7 @@ class WeatherRepositoryImplTest {
         // Given
         val coordinate = Coordinate(27.0, 30.0)
         val weather = Weather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.WINDY)
-        coEvery { weatherDataSource.getWeatherByCoordinate(any()) } returns createDtoWeather()
+        coEvery { weatherDataSource.getDailyWeatherByCoordinate(any()) } returns createDtoWeather()
         coEvery { weatherMapper.mapDtoToWeather(any()) } returns weather
         // When
         val result = weatherRepository.getDailyWeatherByCoordinate(coordinate)
@@ -45,7 +45,7 @@ class WeatherRepositoryImplTest {
         // Given
         val coordinate = Coordinate(27.0, 30.0)
         val weather = Weather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.WINDY)
-        coEvery { weatherDataSource.getWeatherByCoordinate(any()) } throws Exception()
+        coEvery { weatherDataSource.getDailyWeatherByCoordinate(any()) } throws Exception()
         // When & Then
         assertThrows<Exception> { weatherRepository.getDailyWeatherByCoordinate(coordinate) }
     }
@@ -55,7 +55,7 @@ class WeatherRepositoryImplTest {
         // Given
         val coordinate = Coordinate(27.0, 30.0)
         val weather = Weather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.WINDY)
-        coEvery { weatherDataSource.getWeatherByCoordinate(any()) } returns createDtoWeather()
+        coEvery { weatherDataSource.getDailyWeatherByCoordinate(any()) } returns createDtoWeather()
         coEvery { weatherMapper.mapDtoToWeather(any()) } throws Exception()
         // When & Then
         assertThrows<Exception> { weatherRepository.getDailyWeatherByCoordinate(coordinate) }

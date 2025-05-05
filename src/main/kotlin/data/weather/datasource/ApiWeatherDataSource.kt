@@ -8,7 +8,7 @@ import kotlinx.serialization.json.Json
 import logic.model.Coordinate
 
 class ApiWeatherDataSource (val client: HttpClient) : WeatherDataSource {
-    override suspend fun getWeatherByCoordinate(coordinate: Coordinate): WeatherDto {
+    override suspend fun getDailyWeatherByCoordinate(coordinate: Coordinate): WeatherDto {
         val response = client.get("https://api.open-meteo.com/v1/forecast"){
             url {
                 parameters.append("latitude", coordinate.latitude.toString())
