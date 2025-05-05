@@ -4,5 +4,5 @@ import logic.model.Cloth
 import logic.model.ClothType
 
 interface ClothesRepository {
-    suspend fun getClothesByType(clothType: ClothType): List<Cloth>
+    fun getClothesByType(clothType: ClothType): List<Cloth>
 }

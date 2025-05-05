@@ -1,104 +1,125 @@
 package logic.clothesSuggester
 
 import com.google.common.truth.Truth.assertThat
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.mockk
-import kotlinx.coroutines.test.runTest
+import io.mockk.*
 import logic.model.*
 import logic.repository.ClothesRepository
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.util.*
 
 class SuggestClothesUseCaseTest{
-    private val clothesRepository = mockk<ClothesRepository>()
+    private lateinit var clothesRepository: ClothesRepository
     private lateinit var useCase: SuggestClothesUseCase
 
     @BeforeEach
-    fun setUp() {
+    fun setup() {
+        clothesRepository = mockk()
         useCase = SuggestClothesUseCase(clothesRepository)
     }
 
     @Test
-    fun `getSuggestedClothes should return HEAVY clothes for cold weather`() = runTest {
-        // given
-        val weather = Weather(
-            hourlyTemperatures = List(24) { HourlyTemperature(2f, it) },
-            weatherCondition = WeatherCondition.SNOW_HEAVY
-        )
-        val expectedClothes = listOf(Cloth(name = "Winter Coat", type = ClothType.HEAVY))
-        coEvery { clothesRepository.getClothesByType(ClothType.HEAVY) } returns expectedClothes
+    fun `getSuggestedClothes should return empty list when hourly temperatures is empty`() {
+        // Given
+        val weather = Weather(hourlyTemperatures = emptyList(), weatherCondition = WeatherCondition.CLEAR_SKY)
 
-        // when
+        // When
         val result = useCase.getSuggestedClothes(weather)
 
-        // then
-        coVerify { clothesRepository.getClothesByType(ClothType.HEAVY) }
-        assertThat(result).isEqualTo(expectedClothes)
-    }
-
-    @Test
-    fun `getSuggestedClothes should return MEDIUM clothes for cool weather`() = runTest {
-        // given
-        val weather = Weather(
-            hourlyTemperatures = List(24) { HourlyTemperature(10f, it) },
-            weatherCondition = WeatherCondition.CLEAR_SKY
-        )
-        coEvery { clothesRepository.getClothesByType(ClothType.MEDIUM) } returns listOf()
-
-        // when
-        useCase.getSuggestedClothes(weather)
-
-        // then
-        coVerify { clothesRepository.getClothesByType(ClothType.MEDIUM) }
-    }
-
-    @Test
-    fun `getSuggestedClothes should return LIGHT clothes for mild weather`() = runTest {
-        // given
-        val weather = Weather(
-            hourlyTemperatures = List(24) { HourlyTemperature(20f, it) },
-            weatherCondition = WeatherCondition.CLEAR_SKY
-        )
-        coEvery { clothesRepository.getClothesByType(ClothType.LIGHT) } returns listOf()
-
-        // when
-        useCase.getSuggestedClothes(weather)
-
-        // then
-        coVerify { clothesRepository.getClothesByType(ClothType.LIGHT) }
-    }
-
-    @Test
-    fun `getSuggestedClothes should return VERY_LIGHT clothes for hot weather`() = runTest {
-        // given
-        val weather = Weather(
-            hourlyTemperatures = List(24) { HourlyTemperature(30f, it) },
-            weatherCondition = WeatherCondition.CLEAR_SKY
-        )
-        coEvery { clothesRepository.getClothesByType(ClothType.VERY_LIGHT) } returns listOf()
-
-        // when
-        useCase.getSuggestedClothes(weather)
-
-        // then
-        coVerify { clothesRepository.getClothesByType(ClothType.VERY_LIGHT) }
-    }
-
-    @Test
-    fun `getSuggestedClothes should return empty list if hourly temperatures are empty`() = runTest {
-        // given
-        val weather = Weather(
-            hourlyTemperatures = emptyList(),
-            weatherCondition = WeatherCondition.CLEAR_SKY
-        )
-
-        // when
-        val result = useCase.getSuggestedClothes(weather)
-
-        // then
+        // Then
         assertThat(result).isEmpty()
-        coVerify(exactly = 0) { clothesRepository.getClothesByType(any()) }
+    }
+
+    @Test
+    fun `getSuggestedClothes should return HEAVY clothes when average temp is below 5`() {
+        // Given
+        val weather = Weather(
+            hourlyTemperatures = listOf(
+                HourlyTemperature(2f, 0),
+                HourlyTemperature(4f, 1)
+            ),
+            weatherCondition = WeatherCondition.CLEAR_SKY
+        )
+        val clothes = listOf(
+            Cloth(UUID.randomUUID(), "Heavy Jacket", ClothType.HEAVY)
+        )
+        every { clothesRepository.getClothesByType(ClothType.HEAVY) } returns clothes
+
+        // When
+        val result = useCase.getSuggestedClothes(weather)
+
+        // Then
+        verify(exactly = 1) { clothesRepository.getClothesByType(ClothType.HEAVY) }
+        assertThat(result).isEqualTo(clothes)
+    }
+
+    @Test
+    fun `getSuggestedClothes should return MEDIUM clothes when average temp is between 5 and 15`() {
+        // Given
+        val weather = Weather(
+            hourlyTemperatures = listOf(
+                HourlyTemperature(10f, 0),
+                HourlyTemperature(12f, 1)
+            ),
+            weatherCondition = WeatherCondition.CLEAR_SKY
+        )
+        val clothes = listOf(
+            Cloth(UUID.randomUUID(), "Sweater", ClothType.MEDIUM)
+        )
+        every { clothesRepository.getClothesByType(ClothType.MEDIUM) } returns clothes
+
+        // When
+        val result = useCase.getSuggestedClothes(weather)
+
+        // Then
+        verify(exactly = 1) { clothesRepository.getClothesByType(ClothType.MEDIUM) }
+        assertThat(result).isEqualTo(clothes)
+    }
+
+    @Test
+    fun `getSuggestedClothes should return LIGHT clothes when average temp is between 15_1 and 25`() {
+        // Given
+        val weather = Weather(
+            hourlyTemperatures = listOf(
+                HourlyTemperature(20f, 0),
+                HourlyTemperature(22f, 1)
+            ),
+            weatherCondition = WeatherCondition.CLEAR_SKY
+        )
+        val clothes = listOf(
+            Cloth(UUID.randomUUID(), "T-Shirt", ClothType.LIGHT)
+        )
+        every { clothesRepository.getClothesByType(ClothType.LIGHT) } returns clothes
+
+        // When
+        val result = useCase.getSuggestedClothes(weather)
+
+        // Then
+        verify(exactly = 1) { clothesRepository.getClothesByType(ClothType.LIGHT) }
+        assertThat(result).isEqualTo(clothes)
+    }
+
+    @Test
+    fun `getSuggestedClothes should return VERY_LIGHT clothes when average temp is above 25`() {
+        // Given
+        val weather = Weather(
+            hourlyTemperatures = listOf(
+                HourlyTemperature(30f, 0),
+                HourlyTemperature(28f, 1)
+            ),
+            weatherCondition = WeatherCondition.CLEAR_SKY
+        )
+        val clothes = listOf(
+            Cloth(UUID.randomUUID(), "Tank Top", ClothType.VERY_LIGHT)
+        )
+        every { clothesRepository.getClothesByType(ClothType.VERY_LIGHT) } returns clothes
+
+        // When
+        val result = useCase.getSuggestedClothes(weather)
+
+        // Then
+        verify(exactly = 1) { clothesRepository.getClothesByType(ClothType.VERY_LIGHT) }
+        assertThat(result).isEqualTo(clothes)
     }
 }

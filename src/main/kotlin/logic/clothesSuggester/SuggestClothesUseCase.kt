@@ -7,7 +7,7 @@ import logic.model.WeatherCondition
 import logic.repository.ClothesRepository
 
 class SuggestClothesUseCase(private val clothesRepository: ClothesRepository) {
-    suspend fun getSuggestedClothes(weather: Weather): List<Cloth> {
+     fun getSuggestedClothes(weather: Weather): List<Cloth> {
         val avgTemp = weather.hourlyTemperatures.map { it.temperature }.averageOrNull()
 
         val tempBasedType = when {
