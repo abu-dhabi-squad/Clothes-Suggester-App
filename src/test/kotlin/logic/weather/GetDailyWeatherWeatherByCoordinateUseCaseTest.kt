@@ -4,13 +4,14 @@ import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import logic.exception.NoHourlyTemperatureFound
-import logic.exception.UnKnownWeatherConditionException
 import logic.model.Coordinate
 import logic.model.HourlyTemperature
+import logic.model.NoHourlyTemperatureFound
+import logic.model.UnKnownWeatherConditionException
 import logic.model.Weather
 import logic.model.WeatherCondition
 import logic.repository.WeatherRepository
+import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.BeforeTest

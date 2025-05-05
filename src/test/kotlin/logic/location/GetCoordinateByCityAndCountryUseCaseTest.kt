@@ -4,10 +4,11 @@ import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import logic.exception.InvalidCityNameException
-import logic.exception.InvalidCountryNameException
 import logic.model.Coordinate
+import logic.model.InvalidCityNameException
+import logic.model.InvalidCountryNameException
 import logic.repository.LocationRepository
+import logic.usecases.location.GetCoordinateByCityAndCountryUseCase
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

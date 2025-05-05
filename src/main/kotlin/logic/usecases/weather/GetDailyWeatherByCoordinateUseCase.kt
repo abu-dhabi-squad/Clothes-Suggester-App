@@ -1,9 +1,9 @@
-package logic.weather
+package logic.usecases.weather
 
-import logic.exception.NoHourlyTemperatureFound
-import logic.exception.UnKnownWeatherConditionException
 import logic.model.Coordinate
 import logic.model.HourlyTemperature
+import logic.model.NoHourlyTemperatureFound
+import logic.model.UnKnownWeatherConditionException
 import logic.model.Weather
 import logic.model.WeatherCondition
 import logic.repository.WeatherRepository

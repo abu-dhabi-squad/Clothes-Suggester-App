@@ -1,4 +1,4 @@
-package logic.exception
+package logic.model
 
 open class DomainExceptions(message: String) : Exception(message)
 

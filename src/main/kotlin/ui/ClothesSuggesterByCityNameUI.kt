@@ -7,9 +7,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import logic.clothesSuggester.SuggestClothesUseCase
-import logic.location.GetCoordinateByCityAndCountryUseCase
 import logic.model.Cloth
-import logic.weather.GetDailyWeatherByCoordinateUseCase
+import logic.usecases.location.GetCoordinateByCityAndCountryUseCase
+import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
 
 import presentation.ui_io.InputReader
 import presentation.ui_io.Printer
@@ -23,7 +23,7 @@ class ClothesSuggesterByCityNameUI(
 ) : UiLauncher {
 
     private var suggestedClothes: List<Cloth>? = null
-    val customCoroutineScope = CoroutineScope(Dispatchers.Default)
+    private val customCoroutineScope = CoroutineScope(Dispatchers.Default)
     override fun launchUi() {
         val cityName = promptNonEmptyString("Enter city name: ")
         val countryName = promptNonEmptyString("Enter country name: ")
@@ -65,12 +65,13 @@ class ClothesSuggesterByCityNameUI(
             val weather = getDailyWeatherByCoordinateUseCase.getDailyWeather(coordinate)
             suggestedClothes = getSuggestedClothes.getSuggestedClothes(weather)
         } catch (ex: Exception) {
+            printer.display("\r ")
             printer.display(ex.message)
         }
     }
 
     private fun displaySuggestedClothes(clothes: List<Cloth>) {
-        printer.displayLn("\n👕 Suggested Clothes:\n")
+        printer.displayLn("\r\n👕 Suggested Clothes:\n")
         clothes.forEachIndexed { index, cloth ->
             printer.displayLn(
                 """

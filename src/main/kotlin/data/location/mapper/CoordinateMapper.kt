@@ -1,8 +1,8 @@
 package data.location.mapper
 
 import data.location.model.CoordinateDto
-import logic.exception.NoLocationFoundException
 import logic.model.Coordinate
+import logic.model.NoLocationFoundException
 
 class CoordinateMapper {
     fun mapDtoToCoordinate(coordinateDto: CoordinateDto): Coordinate {

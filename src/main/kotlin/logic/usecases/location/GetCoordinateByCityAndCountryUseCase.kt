@@ -1,8 +1,9 @@
-package logic.location
+package logic.usecases.location
 
-import logic.exception.InvalidCityNameException
-import logic.exception.InvalidCountryNameException
+
 import logic.model.Coordinate
+import logic.model.InvalidCityNameException
+import logic.model.InvalidCountryNameException
 import logic.repository.LocationRepository
 
 class GetCoordinateByCityAndCountryUseCase(

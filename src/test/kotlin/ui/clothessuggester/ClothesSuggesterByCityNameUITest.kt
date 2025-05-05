@@ -6,10 +6,10 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import logic.clothesSuggester.SuggestClothesUseCase
-import logic.location.GetCoordinateByCityAndCountryUseCase
 import logic.model.Cloth
 import logic.model.ClothType
-import logic.weather.GetDailyWeatherByCoordinateUseCase
+import logic.usecases.location.GetCoordinateByCityAndCountryUseCase
+import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
 import main.kotlin.ui.ClothesSuggesterByCityNameUI
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

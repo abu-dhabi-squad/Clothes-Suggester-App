@@ -7,8 +7,8 @@ import data.location.mapper.CoordinateMapper
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import logic.exception.NoLocationFoundException
 import logic.model.Coordinate
+import logic.model.NoLocationFoundException
 import logic.repository.LocationRepository
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
