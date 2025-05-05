@@ -6,23 +6,23 @@ import logic.model.HourlyTemperature
 import logic.model.WeatherCondition
 
 fun createDtoWeather(
-   hourlyTemperatures: List<HourlyTemperature> = listOf(HourlyTemperature(10.0, 12)),
-   weatherCondition: WeatherCondition? = WeatherCondition.WINDY,
+    hourly: Hourly = Hourly(listOf(), listOf(), listOf()),
+    currentWeatherCode: Int = 0,
 ): DtoWeather {
 
     return DtoWeather(
-        current = Current(0,0.0,"",0),
-        currentUnits = CurrentUnits("","","",""),
+        current = Current(0, 0.0, "", currentWeatherCode),
+        currentUnits = CurrentUnits("", "", "", ""),
         daily = Daily(listOf(), listOf(), listOf(), listOf()),
-        dailyUnits = DailyUnits("","","",""),
-        elevation =0,
+        dailyUnits = DailyUnits("", "", "", ""),
+        elevation = 0,
         generationtimeMs = 0.0,
-        hourly =Hourly(listOf(), listOf(), listOf()),
-        hourlyUnits = HourlyUnits("","", ""),
+        hourly = hourly,
+        hourlyUnits = HourlyUnits("", "", ""),
         latitude = 0.0,
         longitude = 0.0,
-        timezone ="",
-        timezoneAbbreviation ="",
+        timezone = "",
+        timezoneAbbreviation = "",
         utcOffsetSeconds = 0,
     )
 }
