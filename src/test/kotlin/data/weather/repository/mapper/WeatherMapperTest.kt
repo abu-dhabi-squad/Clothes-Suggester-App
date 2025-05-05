@@ -1,6 +1,7 @@
 package data.weather.repository.mapper
 
 import com.google.common.truth.Truth.assertThat
+import data.weather.mapper.WeatherMapper
 import data.weather.model.Hourly
 import helper.createDtoWeather
 import logic.exception.UnKownWeatherConditionException
@@ -15,12 +16,12 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 import kotlin.test.Test
 
-class WeatherMapperImplTest {
+class WeatherMapperTest {
     private lateinit var weatherMapper: WeatherMapper
 
     @BeforeEach
     fun setup() {
-        weatherMapper = WeatherMapperImpl()
+        weatherMapper = WeatherMapper()
     }
 
     @ParameterizedTest

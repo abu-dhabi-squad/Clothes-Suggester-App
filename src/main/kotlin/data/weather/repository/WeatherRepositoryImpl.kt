@@ -1,7 +1,7 @@
 package data.weather.repository
 
 import data.weather.datasource.WeatherDataSource
-import data.weather.repository.mapper.WeatherMapper
+import data.weather.mapper.WeatherMapper
 import logic.model.Coordinate
 import logic.model.Weather
 import logic.repository.WeatherRepository

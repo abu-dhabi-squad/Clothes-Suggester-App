@@ -1,4 +1,4 @@
-package data.weather.repository.mapper
+package data.weather.mapper
 
 import data.weather.model.DtoWeather
 import logic.exception.UnKownWeatherConditionException
@@ -8,8 +8,8 @@ import logic.model.WeatherCondition
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class WeatherMapperImpl : WeatherMapper {
-    override fun mapDtoToWeather(dtoWeather: DtoWeather): Weather {
+class WeatherMapper{
+    fun mapDtoToWeather(dtoWeather: DtoWeather): Weather {
         val hourlyTemperature = dtoWeather.hourly.temperature2m.zip(dtoWeather.hourly.time) { temp, time ->
             HourlyTemperature(temp, getHourFromTimeString(time))
         }

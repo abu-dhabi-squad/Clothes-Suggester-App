@@ -2,7 +2,7 @@ package data.weather.repository
 
 import com.google.common.truth.Truth.assertThat
 import data.weather.datasource.WeatherDataSource
-import data.weather.repository.mapper.WeatherMapper
+import data.weather.mapper.WeatherMapper
 import helper.createDtoWeather
 import io.mockk.coEvery
 import io.mockk.mockk
