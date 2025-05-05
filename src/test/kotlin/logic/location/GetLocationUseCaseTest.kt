@@ -1,11 +1,11 @@
 package logic.location
 
 import com.google.common.truth.Truth.assertThat
-import io.mockk.every
+import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.test.runTest
 import logic.exception.InvalidCityNameException
 import logic.exception.InvalidCountryNameException
-import logic.exception.NoLocationFoundException
 import logic.model.Coordinate
 import logic.repository.LocationRepository
 import org.junit.jupiter.api.BeforeEach
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 class GetLocationUseCaseTest {
-
     private lateinit var locationRepository: LocationRepository
     private lateinit var getLocationUseCase: GetLocationUseCase
 
@@ -24,12 +23,12 @@ class GetLocationUseCaseTest {
     }
 
     @Test
-    fun `getLocation should return location when provided valid city name and country`() {
+    fun `getLocation should return location when provided valid city name and country`() = runTest {
         // Given
         val city = "city"
         val country = "country"
         val expectedLocation = Coordinate(1.0, 2.0)
-        every { locationRepository.getLocationByCityAndCountry(city, country) } returns expectedLocation
+        coEvery { locationRepository.getLocationByCityAndCountry(city, country) } returns expectedLocation
 
         // When
         val result = getLocationUseCase.getLocation(city, country)
@@ -39,7 +38,7 @@ class GetLocationUseCaseTest {
     }
 
     @Test
-    fun `getLocation should throw InvalidCityNameException when provided invalid city name`() {
+    fun `getLocation should throw InvalidCityNameException when provided invalid city name`() = runTest {
         // Given
         val city = ""
         val country = "country"
@@ -49,7 +48,7 @@ class GetLocationUseCaseTest {
     }
 
     @Test
-    fun `getLocation should throw InvalidCountryNameException when provided invalid country`() {
+    fun `getLocation should throw InvalidCountryNameException when provided invalid country`() = runTest {
         // Given
         val city = "city"
         val country = ""
@@ -59,13 +58,13 @@ class GetLocationUseCaseTest {
     }
 
     @Test
-    fun `getLocation should throw NoLocationFoundException when repository returns null`() {
+    fun `getLocation should throw Exception when repository throws Exception`() = runTest {
         // Given
         val city = "city"
         val country = "country"
-        every { locationRepository.getLocationByCityAndCountry(city, country) } returns null
+        coEvery { locationRepository.getLocationByCityAndCountry(city, country) } throws Exception()
 
         // When & Then
-        assertThrows<NoLocationFoundException> { getLocationUseCase.getLocation(city, country) }
+        assertThrows<Exception> { getLocationUseCase.getLocation(city, country) }
     }
 }
