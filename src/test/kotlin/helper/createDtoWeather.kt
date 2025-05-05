@@ -3,19 +3,19 @@ package helper
 import data.weather.model.*
 
 fun createDtoWeather(
-    hourly: Hourly = Hourly(listOf(), listOf(), listOf()),
+    hourlyWeather: HourlyWeather = HourlyWeather(listOf(), listOf(), listOf()),
     currentWeatherCode: Int = 0,
-): DtoWeather {
+): WeatherDto {
 
-    return DtoWeather(
-        current = Current(0, 0.0, "", currentWeatherCode),
-        currentUnits = CurrentUnits("", "", "", ""),
-        daily = Daily(listOf(), listOf(), listOf(), listOf()),
-        dailyUnits = DailyUnits("", "", "", ""),
+    return WeatherDto(
+        currentWeather = CurrentWeather(0, 0.0, "", currentWeatherCode),
+        currentWeatherUnits = CurrentWeatherUnits("", "", "", ""),
+        dailyWeather = DailyWeather(listOf(), listOf(), listOf(), listOf()),
+        dailyWeatherUnits = DailyWeatherUnits("", "", "", ""),
         elevation = 0.0,
         generationtimeMs = 0.0,
-        hourly = hourly,
-        hourlyUnits = HourlyUnits("", "", ""),
+        hourlyWeather = hourlyWeather,
+        hourlyWeatherUnits = HourlyWeatherUnits("", "", ""),
         latitude = 0.0,
         longitude = 0.0,
         timezone = "",

@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class HourlyUnits(
+data class HourlyWeatherUnits(
     @SerialName("temperature_2m")
     val temperature2m: String,
     @SerialName("time")

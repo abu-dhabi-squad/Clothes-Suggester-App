@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Daily(
+data class DailyWeather(
     @SerialName("temperature_2m_max")
     val temperature2mMax: List<Double>,
     @SerialName("temperature_2m_min")

@@ -1,6 +1,6 @@
 package data.weather.mapper
 
-import data.weather.model.DtoWeather
+import data.weather.model.WeatherDto
 import logic.model.HourlyTemperature
 import logic.model.Weather
 import logic.model.WeatherCondition
@@ -8,11 +8,11 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class WeatherMapper {
-    fun mapDtoToWeather(dtoWeather: DtoWeather): Weather {
-        val hourlyTemperature = dtoWeather.hourly.temperature2m.zip(dtoWeather.hourly.time) { temp, time ->
+    fun mapDtoToWeather(weatherDto: WeatherDto): Weather {
+        val hourlyTemperature = weatherDto.hourlyWeather.temperature2m.zip(weatherDto.hourlyWeather.time) { temp, time ->
             HourlyTemperature(temp, getHourFromTimeString(time))
         }
-        return Weather(hourlyTemperature, getWeatherForeCast(dtoWeather.current.weatherCode))
+        return Weather(hourlyTemperature, getWeatherForeCast(weatherDto.currentWeather.weatherCode))
     }
 
     private fun getHourFromTimeString(time: String): Int {

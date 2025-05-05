@@ -2,7 +2,7 @@ package data.weather.repository.mapper
 
 import com.google.common.truth.Truth.assertThat
 import data.weather.mapper.WeatherMapper
-import data.weather.model.Hourly
+import data.weather.model.HourlyWeather
 import helper.createDtoWeather
 import logic.model.HourlyTemperature
 import logic.model.Weather
@@ -28,7 +28,7 @@ class WeatherMapperTest {
         WeatherCondition: WeatherCondition
     ) {
         //Given
-        val dtoWeather = createDtoWeather(hourly = Hourly(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)), weatherCode)
+        val dtoWeather = createDtoWeather(hourlyWeather = HourlyWeather(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)), weatherCode)
         val expectedWeather = Weather(listOf(HourlyTemperature(10.0, 15)), WeatherCondition)
         //When
         val actualWeather = weatherMapper.mapDtoToWeather(dtoWeather)
