@@ -20,81 +20,80 @@ class SuggestClothesUseCaseTest{
     }
 
     @Test
-    fun `should return HEAVY clothes when avg temperature is below 5`() {
+    fun `should return VERY_HEAVY clothes when avg temperature is below 0`() {
         // Given
-        val hourlyTemps = listOf(
-            HourlyTemperature(0.0, 1),
-            HourlyTemperature(2.0, 2)
+        val weather = Weather(
+            hourlyTemperatures = listOf(HourlyTemperature(-5.0, 1)),
+            weatherCondition = WeatherCondition.CLEAR_SKY
         )
-        val weather = Weather(hourlyTemps, WeatherCondition.CLEAR_SKY)
-        val expectedClothes = listOf(Cloth(UUID.randomUUID(), "Heavy Coat", ClothType.HEAVY))
-
-        every { clothesRepository.getClothesByType(ClothType.HEAVY) } returns expectedClothes
+        val expected = listOf(Cloth(UUID.randomUUID(), "Snow Jacket", ClothType.VERY_HEAVY))
+        every { clothesRepository.getClothesByType(ClothType.VERY_HEAVY) } returns expected
 
         // When
         val result = useCase.getSuggestedClothes(weather)
 
         // Then
+        verify { clothesRepository.getClothesByType(ClothType.VERY_HEAVY) }
+        assertThat(result).isEqualTo(expected)
+    }
+
+    @Test
+    fun `should return HEAVY clothes when avg temperature is between 0 and 5`() {
+        val weather = Weather(
+            hourlyTemperatures = listOf(HourlyTemperature(2.5, 1)),
+            weatherCondition = WeatherCondition.CLEAR_SKY
+        )
+        val expected = listOf(Cloth(UUID.randomUUID(), "Heavy Coat", ClothType.HEAVY))
+        every { clothesRepository.getClothesByType(ClothType.HEAVY) } returns expected
+
+        val result = useCase.getSuggestedClothes(weather)
+
         verify { clothesRepository.getClothesByType(ClothType.HEAVY) }
-        assertThat(result).isEqualTo(expectedClothes)
+        assertThat(result).isEqualTo(expected)
     }
 
     @Test
-    fun `should return MEDIUM clothes when avg temperature is between 5 and 15 inclusive`() {
-        // Given
-        val hourlyTemps = listOf(
-            HourlyTemperature(10.0, 1),
-            HourlyTemperature(12.0, 2)
+    fun `should return MEDIUM clothes when avg temperature is between 5 and 15`() {
+        val weather = Weather(
+            hourlyTemperatures = listOf(HourlyTemperature(10.0, 1)),
+            weatherCondition = WeatherCondition.CLEAR_SKY
         )
-        val weather = Weather(hourlyTemps, WeatherCondition.CLEAR_SKY)
-        val expectedClothes = listOf(Cloth(UUID.randomUUID(), "Medium Jacket", ClothType.MEDIUM))
+        val expected = listOf(Cloth(UUID.randomUUID(), "Medium Jacket", ClothType.MEDIUM))
+        every { clothesRepository.getClothesByType(ClothType.MEDIUM) } returns expected
 
-        every { clothesRepository.getClothesByType(ClothType.MEDIUM) } returns expectedClothes
-
-        // When
         val result = useCase.getSuggestedClothes(weather)
 
-        // Then
         verify { clothesRepository.getClothesByType(ClothType.MEDIUM) }
-        assertThat(result).isEqualTo(expectedClothes)
+        assertThat(result).isEqualTo(expected)
     }
 
     @Test
-    fun `should return LIGHT clothes when avg temperature is between 15_1 and 25 inclusive`() {
-        // Given
-        val hourlyTemps = listOf(
-            HourlyTemperature(16.0, 1),
+    fun `should return LIGHT clothes when avg temperature is between 15 and 22`() {
+        val weather = Weather(
+            hourlyTemperatures = listOf(HourlyTemperature(20.0, 1)),
+            weatherCondition = WeatherCondition.CLEAR_SKY
         )
-        val weather = Weather(hourlyTemps, WeatherCondition.CLEAR_SKY)
-        val expectedClothes = listOf(Cloth(UUID.randomUUID(), "Light Shirt", ClothType.LIGHT))
+        val expected = listOf(Cloth(UUID.randomUUID(), "Light Shirt", ClothType.LIGHT))
+        every { clothesRepository.getClothesByType(ClothType.LIGHT) } returns expected
 
-        every { clothesRepository.getClothesByType(ClothType.LIGHT) } returns expectedClothes
-
-        // When
         val result = useCase.getSuggestedClothes(weather)
 
-        // Then
         verify { clothesRepository.getClothesByType(ClothType.LIGHT) }
-        assertThat(result).isEqualTo(expectedClothes)
+        assertThat(result).isEqualTo(expected)
     }
 
     @Test
-    fun `should return VERY_LIGHT clothes when avg temperature is above 25`() {
-        // Given
-        val hourlyTemps = listOf(
-            HourlyTemperature(30.0, 1),
-            HourlyTemperature(32.0, 2)
+    fun `should return VERY_LIGHT clothes when avg temperature is 22 or above`() {
+        val weather = Weather(
+            hourlyTemperatures = listOf(HourlyTemperature(25.0, 1)),
+            weatherCondition = WeatherCondition.CLEAR_SKY
         )
-        val weather = Weather(hourlyTemps, WeatherCondition.CLEAR_SKY)
-        val expectedClothes = listOf(Cloth(UUID.randomUUID(), "T-Shirt", ClothType.VERY_LIGHT))
+        val expected = listOf(Cloth(UUID.randomUUID(), "T-Shirt", ClothType.VERY_LIGHT))
+        every { clothesRepository.getClothesByType(ClothType.VERY_LIGHT) } returns expected
 
-        every { clothesRepository.getClothesByType(ClothType.VERY_LIGHT) } returns expectedClothes
-
-        // When
         val result = useCase.getSuggestedClothes(weather)
 
-        // Then
         verify { clothesRepository.getClothesByType(ClothType.VERY_LIGHT) }
-        assertThat(result).isEqualTo(expectedClothes)
+        assertThat(result).isEqualTo(expected)
     }
 }
