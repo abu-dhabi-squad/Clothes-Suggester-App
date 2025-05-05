@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LocationResult(
+data class CoordinateResult(
     @SerialName("admin1")
     val admin1: String,
     @SerialName("admin1_id")
