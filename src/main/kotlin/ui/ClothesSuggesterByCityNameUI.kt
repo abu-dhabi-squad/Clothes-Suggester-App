@@ -17,7 +17,7 @@ import presentation.ui_io.Printer
 class ClothesSuggesterByCityNameUI(
     private val printer: Printer,
     private val inputReader: InputReader,
-    private val getLocationUseCase: GetCoordinateByCityAndCountryUseCase,
+    private val getCoordinateByCityAndCountryUseCase: GetCoordinateByCityAndCountryUseCase,
     private val getDailyWeatherByCoordinateUseCase: GetDailyWeatherByCoordinateUseCase,
     private val getSuggestedClothes: SuggestClothesUseCase
 ) : UiLauncher {
@@ -61,7 +61,7 @@ class ClothesSuggesterByCityNameUI(
     private suspend fun onGetSuggestingClothesExecute(cityName: String, countryName: String) {
         try {
             val coordinate =
-                getLocationUseCase.getCoordinateByCityAndCountry(cityName = cityName, country = countryName)
+                getCoordinateByCityAndCountryUseCase.getCoordinateByCityAndCountry(cityName = cityName, country = countryName)
             val weather = getDailyWeatherByCoordinateUseCase.getDailyWeather(coordinate)
             suggestedClothes = getSuggestedClothes.getSuggestedClothes(weather)
         } catch (ex: Exception) {
