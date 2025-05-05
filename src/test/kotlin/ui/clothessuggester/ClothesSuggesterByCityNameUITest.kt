@@ -6,7 +6,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import logic.clothesSuggester.SuggestClothesUseCase
-import logic.location.GetLocationUseCase
+import logic.location.GetCoordinateByCityAndCountryUseCase
 import logic.model.Cloth
 import logic.model.ClothType
 import logic.weather.GetDailyWeatherByCoordinateUseCase
@@ -23,7 +23,7 @@ class ClothesSuggesterByCityNameUITest {
     private lateinit var clothesSuggesterUi: ClothesSuggesterByCityNameUI
     private lateinit var inputReader: InputReader
     private lateinit var printer: Printer
-    private lateinit var getLocationUseCase: GetLocationUseCase
+    private lateinit var getCoordinateByCityAndCountryUseCase: GetCoordinateByCityAndCountryUseCase
     private lateinit var getDailyWeatherByCoordinateUseCase: GetDailyWeatherByCoordinateUseCase
     private lateinit var getSuggestedClothes: SuggestClothesUseCase
 
@@ -31,13 +31,13 @@ class ClothesSuggesterByCityNameUITest {
     fun setup() {
         inputReader = mockk(relaxed = true)
         printer = mockk(relaxed = true)
-        getLocationUseCase = mockk(relaxed = true)
+        getCoordinateByCityAndCountryUseCase = mockk(relaxed = true)
         getDailyWeatherByCoordinateUseCase = mockk(relaxed = true)
         getSuggestedClothes = mockk(relaxed = true)
         clothesSuggesterUi = ClothesSuggesterByCityNameUI(
             printer,
             inputReader,
-            getLocationUseCase,
+            getCoordinateByCityAndCountryUseCase,
             getDailyWeatherByCoordinateUseCase,
             getSuggestedClothes
         )
@@ -72,13 +72,13 @@ class ClothesSuggesterByCityNameUITest {
     }
 
     @Test
-    fun `should display error message when getLocationUseCase throw exception`() {
+    fun `should display error message when getCoordinateByCityAndCountryUseCase throw exception`() {
         // Given
         val cityName = "London"
         val countryName = "UK"
         val error = "there are error will getting the location"
         every { inputReader.readString() } returns "London" andThen "UK"
-        coEvery { getLocationUseCase.getLocation(cityName, countryName) } throws Exception(error)
+        coEvery { getCoordinateByCityAndCountryUseCase.getCoordinateByCityAndCountry(cityName, countryName) } throws Exception(error)
         //
         clothesSuggesterUi.launchUi()
         // Then
@@ -92,7 +92,7 @@ class ClothesSuggesterByCityNameUITest {
         val countryName = "UK"
         val error = "there are error will while getting daily weather"
         every { inputReader.readString() } returns "London" andThen "UK"
-        coEvery { getLocationUseCase.getLocation(cityName, countryName) } throws Exception(error)
+        coEvery { getCoordinateByCityAndCountryUseCase.getCoordinateByCityAndCountry(cityName, countryName) } throws Exception(error)
         //
         clothesSuggesterUi.launchUi()
         // Then
@@ -106,7 +106,7 @@ class ClothesSuggesterByCityNameUITest {
         val countryName = "UK"
         val error = "there are error will while getting suggesting clothes"
         every { inputReader.readString() } returns "London" andThen "UK"
-        coEvery { getLocationUseCase.getLocation(cityName, countryName) } throws Exception(error)
+        coEvery { getCoordinateByCityAndCountryUseCase.getCoordinateByCityAndCountry(cityName, countryName) } throws Exception(error)
         //
         clothesSuggesterUi.launchUi()
         // Then

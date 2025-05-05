@@ -5,13 +5,13 @@ import logic.exception.InvalidCountryNameException
 import logic.model.Coordinate
 import logic.repository.LocationRepository
 
-class GetLocationUseCase(
+class GetCoordinateByCityAndCountryUseCase(
     private val locationRepository: LocationRepository
 ) {
-    suspend fun getLocation(cityName: String, country: String): Coordinate {
+    suspend fun getCoordinateByCityAndCountry(cityName: String, country: String): Coordinate {
         if (!validateCityName(cityName)) throw InvalidCityNameException()
         if (!validateCountry(country)) throw InvalidCountryNameException()
-        return locationRepository.getLocationByCityAndCountry(cityName, country)
+        return locationRepository.getCoordinateByCityAndCountry(cityName, country)
     }
 
     private fun validateCityName(cityName: String): Boolean {
