@@ -1,17 +1,17 @@
 package helper
 
-import data.location.model.CoordinateDto
-import data.location.model.CoordinateResult
+import data.location.model.CityLocationDto
+import data.location.model.CityLocationDetailsDto
 
 fun createDtoLocation(
     generationTimeMs: Double = 0.0,
     latitude: Double = 0.0,
     longitude: Double = 0.0,
-    citiesCoordinates: List<CoordinateResult>? = null,
-): CoordinateDto {
-    return CoordinateDto(
+    citiesCoordinates: List<CityLocationDetailsDto>? = null,
+): CityLocationDto {
+    return CityLocationDto(
         generationTimeMs = generationTimeMs,
-        citiesCoordinates = citiesCoordinates ?: listOf(CoordinateResult(
+        citiesCoordinates = citiesCoordinates ?: listOf(CityLocationDetailsDto(
             latitude = latitude,
             longitude = longitude,
             admin1 = "",

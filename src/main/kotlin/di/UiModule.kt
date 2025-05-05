@@ -2,6 +2,7 @@ package di
 
 import main.kotlin.ui.ClothesSuggesterApp
 import main.kotlin.ui.ClothesSuggesterByCityNameUI
+import main.kotlin.ui.ClothesSuggesterByIpUI
 import main.kotlin.ui.UIFeature
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -17,14 +18,18 @@ val uiModule = module {
     single<InputReader> { ConsoleReader() }
 
     single { ClothesSuggesterByCityNameUI(get(), get(), get(), get(), get()) }
-    single { ClothesSuggesterApp(get(), get(), get()) }
-
+    single { ClothesSuggesterByIpUI(get(),get(),get(),get()) }
     single<List<UIFeature>>(named("features")) {
-
         listOf(
             UIFeature(
-                label = "Suggest Clothes", id = 1,
+                label = "Get Outfit by City",
+                id = 1,
                 uiLauncher = get<ClothesSuggesterByCityNameUI>()
+            ),
+            UIFeature(
+                label = "Get Outfit for Your Location",
+                id = 2,
+                uiLauncher = get<ClothesSuggesterByIpUI>()
             )
         )
     }

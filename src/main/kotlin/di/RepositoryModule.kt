@@ -5,7 +5,9 @@ import data.clothes.datasource.MemoryClothesDataSource
 import data.clothes.repository.ClothesRepositoryImpl
 import data.location.datasource.ApiLocationDataSource
 import data.location.datasource.LocationDataSource
-import data.location.mapper.CoordinateMapper
+import data.location.mapper.CityLocationMapper
+import data.location.mapper.IpLocationMapper
+import data.location.model.IpLocationDto
 import data.location.repository.LocationRepositoryImpl
 import data.weather.datasource.ApiWeatherDataSource
 import data.weather.datasource.WeatherDataSource
@@ -19,7 +21,7 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
     // repositories
-    single<LocationRepository> { LocationRepositoryImpl(get(), get()) }
+    single<LocationRepository> { LocationRepositoryImpl(get(), get(),get()) }
     single<WeatherRepository> { WeatherRepositoryImpl(get(), get()) }
     single <ClothesRepository>{ClothesRepositoryImpl(get())  }
     // datasource
@@ -28,8 +30,9 @@ val repositoryModule = module {
     single<ClothesDataSource> {  MemoryClothesDataSource()}
     single<HttpClient> { HttpClient() }
     // mapper
-    single { CoordinateMapper() }
+    single { CityLocationMapper() }
     single { WeatherMapper() }
+    single { IpLocationMapper() }
 
 
 
