@@ -71,9 +71,6 @@ class ClothesSuggesterByCityNameUITest {
         verify { printer.displayLn("Input cannot be empty.") }
     }
 
-    //    getLocationUseCase = mockk(relaxed = true)
-//    getDailyWeatherByCoordinateUseCase = mockk(relaxed = true)
-//    getSuggestedClothes = mockk(relaxed = true)
     @Test
     fun `should display error message when getLocationUseCase throw exception`() {
         // Given

@@ -1,5 +1,10 @@
 package main.kotlin.ui
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import logic.clothesSuggester.SuggestClothesUseCase
 import logic.location.GetLocationUseCase
@@ -18,14 +23,17 @@ class ClothesSuggesterByCityNameUI(
 ) : UiLauncher {
 
     private var suggestedClothes: List<Cloth>? = null
+    val customCoroutineScope = CoroutineScope(Dispatchers.Default)
     override fun launchUi() {
         val cityName = promptNonEmptyString("Enter city name: ")
         val countryName = promptNonEmptyString("Enter country name: ")
+        loading()
         runBlocking {
             onGetSuggestingClothesExecute(cityName, countryName)
             suggestedClothes?.let {
                 displaySuggestedClothes(it)
             }
+            customCoroutineScope.cancel()
         }
     }
 
@@ -35,6 +43,18 @@ class ClothesSuggesterByCityNameUI(
             val input = inputReader.readString()
             if (!input.isNullOrBlank()) return input
             printer.displayLn("Input cannot be empty.")
+        }
+    }
+
+    private fun loading() {
+        customCoroutineScope.launch {
+            while (true) {
+                for (char in "Loading ...") {
+                    printer.display(char)
+                    delay(250)
+                }
+                printer.display("\r ")
+            }
         }
     }
 
