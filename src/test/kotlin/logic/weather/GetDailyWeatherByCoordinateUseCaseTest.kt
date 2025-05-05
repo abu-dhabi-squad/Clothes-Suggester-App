@@ -5,6 +5,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import logic.exception.NoHourlyTemperatureFound
+import logic.exception.UnKnownWeatherConditionException
 import logic.model.Coordinate
 import logic.model.HourlyTemperature
 import logic.model.Weather
@@ -51,10 +52,22 @@ class GetDailyWeatherByCoordinateUseCaseTest {
         }
 
     @Test
+    fun `getDailyWeather should throw UnKnownWeatherConditionException when returned weather has weather UNKNOWN_WEATHER_FORECAST condition`() =
+        runTest {
+            //Given
+            val validCoordinate = Coordinate(27.0, 30.0)
+            val weather = Weather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.UNKNOWN_WEATHER_FORECAST)
+            coEvery { weatherRepository.getDailyWeatherByCoordinate(any()) } returns weather
+            //When & Then
+            assertThrows<UnKnownWeatherConditionException> {
+                getDailyWeatherByCoordinate.getDailyWeather(validCoordinate)
+            }
+        }
+
+    @Test
     fun `getDailyWeather should throw Exception when weatherRepository getDailyWeather throw Exception`() = runTest {
         //Given
         val validCoordinate = Coordinate(27.0, 30.0)
-        val weather = Weather(listOf(HourlyTemperature(10.0, 12)), WeatherCondition.WINDY)
         coEvery { weatherRepository.getDailyWeatherByCoordinate(any()) } throws Exception()
         //When & Then
         assertThrows<Exception> {

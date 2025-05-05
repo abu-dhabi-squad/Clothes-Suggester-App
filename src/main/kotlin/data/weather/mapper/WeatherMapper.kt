@@ -1,14 +1,13 @@
 package data.weather.mapper
 
 import data.weather.model.DtoWeather
-import logic.exception.UnKownWeatherConditionException
 import logic.model.HourlyTemperature
 import logic.model.Weather
 import logic.model.WeatherCondition
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class WeatherMapper{
+class WeatherMapper {
     fun mapDtoToWeather(dtoWeather: DtoWeather): Weather {
         val hourlyTemperature = dtoWeather.hourly.temperature2m.zip(dtoWeather.hourly.time) { temp, time ->
             HourlyTemperature(temp, getHourFromTimeString(time))
@@ -52,7 +51,7 @@ class WeatherMapper{
             95 -> WeatherCondition.THUNDER_STORM
             96 -> WeatherCondition.THUNDER_STORM_HAIL_LIGHT
             99 -> WeatherCondition.THUNDER_STORM_HAIL_HEAVY
-            else -> {throw UnKownWeatherConditionException() }
+            else -> WeatherCondition.UNKNOWN_WEATHER_FORECAST
         }
     }
 }

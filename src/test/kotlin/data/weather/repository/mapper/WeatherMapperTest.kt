@@ -4,17 +4,14 @@ import com.google.common.truth.Truth.assertThat
 import data.weather.mapper.WeatherMapper
 import data.weather.model.Hourly
 import helper.createDtoWeather
-import logic.exception.UnKownWeatherConditionException
 import logic.model.HourlyTemperature
 import logic.model.Weather
 import logic.model.WeatherCondition
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
-import kotlin.test.Test
 
 class WeatherMapperTest {
     private lateinit var weatherMapper: WeatherMapper
@@ -37,26 +34,6 @@ class WeatherMapperTest {
         val actualWeather = weatherMapper.mapDtoToWeather(dtoWeather)
         //Then
         assertThat(actualWeather).isEqualTo(expectedWeather)
-    }
-
-    @Test
-    fun `mapDtoToWeather should throw exception when no forecast found`() {
-        //Given
-        val dtoWeather = createDtoWeather(hourly = Hourly(listOf(10.0), listOf(), listOf(0)), 100)
-        //When & Then
-        assertThrows<Exception> {
-            weatherMapper.mapDtoToWeather(dtoWeather)
-        }
-    }
-
-    @Test
-    fun `mapDtoToWeather should throw UnKownWeatherConditionException when current weather code is unkown`() {
-        //Given
-        val dtoWeather = createDtoWeather(hourly = Hourly(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)), 100)
-        //When & Then
-        assertThrows<UnKownWeatherConditionException> {
-            weatherMapper.mapDtoToWeather(dtoWeather)
-        }
     }
 
     companion object {
@@ -90,7 +67,8 @@ class WeatherMapperTest {
                 Arguments.of(86, WeatherCondition.SNOW_SHOWER_HEAVY),
                 Arguments.of(95, WeatherCondition.THUNDER_STORM),
                 Arguments.of(96, WeatherCondition.THUNDER_STORM_HAIL_LIGHT),
-                Arguments.of(99, WeatherCondition.THUNDER_STORM_HAIL_HEAVY)
+                Arguments.of(99, WeatherCondition.THUNDER_STORM_HAIL_HEAVY),
+                Arguments.of(100, WeatherCondition.UNKNOWN_WEATHER_FORECAST)
             )
         }
     }

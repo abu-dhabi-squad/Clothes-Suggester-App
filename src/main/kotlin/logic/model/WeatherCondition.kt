@@ -40,4 +40,6 @@ enum class WeatherCondition {
 
     FOG,
     DEPOSITING_RIME_FOG,
+
+    UNKNOWN_WEATHER_FORECAST
 }
