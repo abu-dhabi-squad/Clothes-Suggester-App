@@ -7,7 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import logic.clothesSuggester.SuggestClothesUseCase
-import logic.location.GetLocationUseCase
+import logic.location.GetCoordinateByCityAndCountryUseCase
 import logic.model.Cloth
 import logic.weather.GetDailyWeatherByCoordinateUseCase
 
@@ -17,7 +17,7 @@ import presentation.ui_io.Printer
 class ClothesSuggesterByCityNameUI(
     private val printer: Printer,
     private val inputReader: InputReader,
-    private val getLocationUseCase: GetLocationUseCase,
+    private val getLocationUseCase: GetCoordinateByCityAndCountryUseCase,
     private val getDailyWeatherByCoordinateUseCase: GetDailyWeatherByCoordinateUseCase,
     private val getSuggestedClothes: SuggestClothesUseCase
 ) : UiLauncher {
@@ -61,7 +61,7 @@ class ClothesSuggesterByCityNameUI(
     private suspend fun onGetSuggestingClothesExecute(cityName: String, countryName: String) {
         try {
             val coordinate =
-                getLocationUseCase.getLocation(cityName = cityName, country = countryName)
+                getLocationUseCase.getCoordinateByCityAndCountry(cityName = cityName, country = countryName)
             val weather = getDailyWeatherByCoordinateUseCase.getDailyWeather(coordinate)
             suggestedClothes = getSuggestedClothes.getSuggestedClothes(weather)
         } catch (ex: Exception) {
