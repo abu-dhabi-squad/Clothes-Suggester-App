@@ -1,9 +1,6 @@
 package helper
 
 import data.weather.model.*
-import kotlinx.serialization.SerialName
-import logic.model.HourlyTemperature
-import logic.model.WeatherCondition
 
 fun createDtoWeather(
     hourly: Hourly = Hourly(listOf(), listOf(), listOf()),

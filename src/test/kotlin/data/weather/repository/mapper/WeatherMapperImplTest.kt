@@ -3,8 +3,6 @@ package data.weather.repository.mapper
 import com.google.common.truth.Truth.assertThat
 import data.weather.model.Hourly
 import helper.createDtoWeather
-import io.mockk.every
-import io.mockk.mockk
 import logic.exception.UnKownWeatherConditionException
 import logic.model.HourlyTemperature
 import logic.model.Weather
@@ -43,7 +41,7 @@ class WeatherMapperImplTest {
     @Test
     fun `mapDtoToWeather should throw exception when no forecast found`() {
         //Given
-        val dtoWeather = createDtoWeather(hourly = Hourly(listOf(10.0), listOf(), listOf(0)), 1)
+        val dtoWeather = createDtoWeather(hourly = Hourly(listOf(10.0), listOf(), listOf(0)), 100)
         //When & Then
         assertThrows<Exception> {
             weatherMapper.mapDtoToWeather(dtoWeather)
