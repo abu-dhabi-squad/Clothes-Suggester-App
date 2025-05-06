@@ -8,5 +8,5 @@ data class CityLocationDto(
     @SerialName("generationtime_ms")
     val generationTimeMs: Double?,
     @SerialName("results")
-    val citiesCoordinates: List<CityLocationDetailsDto>?
+    val citiesCoordinates: List<CityLocationDetailsDto>? = null
 )
