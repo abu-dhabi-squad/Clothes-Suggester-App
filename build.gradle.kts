@@ -13,17 +13,27 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    // koin
     implementation("io.insert-koin:koin-core:4.0.2")
+    implementation("io.insert-koin:koin-annotations:2.0.0")
+    // serialization json
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    //ktor
+    implementation("io.ktor:ktor-client-core:2.3.13")
+    implementation("io.ktor:ktor-client-cio:2.3.13")
+
+    // coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    // unit testing
     testImplementation ("com.google.truth:truth:1.4.4")
     testImplementation("io.mockk:mockk:1.14.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
-    implementation("com.soywiz.korlibs.krypto:krypto:3.4.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    implementation("io.ktor:ktor-client-core:2.3.13")
-    implementation("io.ktor:ktor-client-cio:2.3.13")
+
     implementation("ch.qos.logback:logback-classic:1.5.6")
+    implementation("com.soywiz.korlibs.krypto:krypto:3.4.0")
+
+
 }
 
 tasks.test {

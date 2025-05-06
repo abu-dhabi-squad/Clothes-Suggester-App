@@ -1,9 +1,8 @@
-package logic.clothesSuggester
+package logic.usecases.clothesSuggester
 
 import logic.model.Cloth
 import logic.model.ClothType
 import logic.model.Weather
-import logic.model.WeatherCondition
 import logic.repository.ClothesRepository
 
 class SuggestClothesUseCase(private val clothesRepository: ClothesRepository) {
@@ -15,6 +14,6 @@ class SuggestClothesUseCase(private val clothesRepository: ClothesRepository) {
             avgTemp in 15.0 ..< 25.0 -> ClothType.LIGHT
             else ->ClothType.VERY_LIGHT
         }
-        return clothesRepository.getClothesByType(tempBasedType)
+        return clothesRepository.getClothByType(tempBasedType)
     }
 }

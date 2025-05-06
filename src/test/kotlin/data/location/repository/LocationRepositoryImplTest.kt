@@ -2,28 +2,31 @@ package data.location.repository
 
 import helper.createDtoLocation
 import com.google.common.truth.Truth.assertThat
-import data.location.datasource.LocationDataSource
-import data.location.mapper.CoordinateMapper
+import data.location.datasource.LocationRemoteDataSource
+import data.location.mapper.CityLocationMapper
+import data.location.mapper.IpLocationMapper
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import logic.exception.NoLocationFoundException
-import logic.model.Coordinate
+import logic.model.LocationCoordinate
 import logic.repository.LocationRepository
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 class LocationRepositoryImplTest {
-    private lateinit var remoteDataSource: LocationDataSource
-    private lateinit var coordinateMapper: CoordinateMapper
+    private lateinit var remoteDataSource: LocationRemoteDataSource
+    private lateinit var cityLocationMapper: CityLocationMapper
     private lateinit var locationRepository: LocationRepository
+    private lateinit var ipLocationMapper : IpLocationMapper
 
     @BeforeEach
     fun setup() {
         remoteDataSource = mockk(relaxed = true)
-        coordinateMapper = mockk(relaxed = true)
-        locationRepository = LocationRepositoryImpl(remoteDataSource, coordinateMapper)
+        cityLocationMapper = mockk(relaxed = true)
+        ipLocationMapper = mockk(relaxed = true)
+        locationRepository = LocationRepositoryImpl(remoteDataSource, cityLocationMapper,ipLocationMapper)
     }
 
     @Test
@@ -32,9 +35,9 @@ class LocationRepositoryImplTest {
         val city = "city"
         val country = "country"
         val expectedLocationDto = createDtoLocation(latitude = 0.0, longitude = 0.0)
-        val expectedLocation = Coordinate(latitude = 0.0, longitude = 0.0)
+        val expectedLocation = LocationCoordinate(latitude = 0.0, longitude = 0.0)
         coEvery { remoteDataSource.getLocationByCityAndCountry(any(), any()) } returns expectedLocationDto
-        coEvery { coordinateMapper.mapDtoToCoordinate(expectedLocationDto) } returns expectedLocation
+        coEvery { cityLocationMapper.mapDtoToLocationCoordinate(expectedLocationDto) } returns expectedLocation
 
         // When
         val result = locationRepository.getCoordinateByCityAndCountry(city, country)
@@ -61,7 +64,7 @@ class LocationRepositoryImplTest {
         val country = "country"
         val expectedLocationDto = createDtoLocation()
         coEvery { remoteDataSource.getLocationByCityAndCountry(any(), any()) } returns expectedLocationDto
-        coEvery { coordinateMapper.mapDtoToCoordinate(expectedLocationDto) } throws NoLocationFoundException()
+        coEvery { cityLocationMapper.mapDtoToLocationCoordinate(expectedLocationDto) } throws NoLocationFoundException()
 
         // When & Then
         assertThrows<NoLocationFoundException> { locationRepository.getCoordinateByCityAndCountry(city, country) }
@@ -74,7 +77,7 @@ class LocationRepositoryImplTest {
         val country = "country"
         val expectedLocationDto = createDtoLocation()
         coEvery { remoteDataSource.getLocationByCityAndCountry(any(), any()) } returns expectedLocationDto
-        coEvery { coordinateMapper.mapDtoToCoordinate(expectedLocationDto) } throws Exception()
+        coEvery { cityLocationMapper.mapDtoToLocationCoordinate(expectedLocationDto) } throws Exception()
 
         // When & Then
         assertThrows<Exception> { locationRepository.getCoordinateByCityAndCountry(city, country) }

@@ -6,43 +6,31 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import logic.usecases.clothesSuggester.GetClothingSuggestionUseCase
 import logic.model.Cloth
-import logic.usecases.location.GetCoordinateByCityAndCountryUseCase
+import logic.usecases.clothesSuggester.SuggestClothesUseCase
+import logic.usecases.location.GetCoordinateByIpUseCase
 import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
-import ui.io.InputReader
+
 import ui.io.Printer
 
-class ClothesSuggesterByCityNameUI(
+class ClothesSuggesterByIpUI(
     private val printer: Printer,
-    private val inputReader: InputReader,
-    private val getCoordinateByCityAndCountryUseCase: GetCoordinateByCityAndCountryUseCase,
+    private val getCoordinateByIpUseCase: GetCoordinateByIpUseCase,
     private val getDailyWeatherByCoordinateUseCase: GetDailyWeatherByCoordinateUseCase,
-    private val getSuggestedClothes: GetClothingSuggestionUseCase
+    private val getSuggestedClothes: SuggestClothesUseCase
 ) : UiLauncher {
 
     private var suggestedClothes: List<Cloth>? = null
     private lateinit var customCoroutineScope: CoroutineScope
     override fun launchUi() {
-        val cityName = promptNonEmptyString("Enter city name: ")
-        val countryName = promptNonEmptyString("Enter country name: ")
         customCoroutineScope = CoroutineScope(Dispatchers.Default)
         loading()
         runBlocking(Dispatchers.Default) {
-            onGetSuggestingClothesExecute(cityName, countryName)
+            onGetSuggestingClothesExecute()
             suggestedClothes?.let {
                 displaySuggestedClothes(it)
             }
             customCoroutineScope.cancel()
-        }
-    }
-
-    private fun promptNonEmptyString(prompt: String): String {
-        while (true) {
-            printer.display(prompt)
-            val input = inputReader.readString()
-            if (!input.isNullOrBlank()) return input
-            printer.displayLn("Input cannot be empty.")
         }
     }
 
@@ -58,13 +46,9 @@ class ClothesSuggesterByCityNameUI(
         }
     }
 
-    private suspend fun onGetSuggestingClothesExecute(cityName: String, countryName: String) {
+    private suspend fun onGetSuggestingClothesExecute() {
         try {
-            val coordinate =
-                getCoordinateByCityAndCountryUseCase.getCoordinateByCityAndCountry(
-                    cityName = cityName,
-                    country = countryName
-                )
+            val coordinate = getCoordinateByIpUseCase.getCoordinateByIp()
             val weather = getDailyWeatherByCoordinateUseCase.getDailyWeather(coordinate)
             suggestedClothes = getSuggestedClothes.getSuggestedClothes(weather)
         } catch (exception: Exception) {

@@ -1,6 +1,6 @@
 package logic.model
 
-data class Coordinate(
+data class LocationCoordinate(
     val latitude: Double,
     val longitude: Double,
 )
