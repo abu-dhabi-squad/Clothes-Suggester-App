@@ -11,22 +11,18 @@ import java.time.format.DateTimeFormatter
 class WeatherMapper {
     fun mapDtoToWeather(weatherDto: WeatherDto): Weather {
 
-        weatherDto.isDataValid()
+        val hourlyWeather = weatherDto.hourlyWeather ?: throw DataIsNullException()
+        val hourlyTemperature = hourlyWeather.temperature2m ?: throw DataIsNullException()
+        val hourlyTime = hourlyWeather.time ?: throw DataIsNullException()
+        val currentWeather = weatherDto.currentWeather ?: throw DataIsNullException()
+        val weatherCode = currentWeather.weatherCode ?: throw DataIsNullException()
 
-        val hourlyTemperature = weatherDto.hourlyWeather!!.temperature2m!!.zip(weatherDto.hourlyWeather.time!!) { temp, time ->
+        val hourlyData = hourlyTemperature.zip(hourlyTime) { temp, time ->
             HourlyTemperature(temp, getHourFromTimeString(time))
         }
-        return Weather(hourlyTemperature, getWeatherForeCast(weatherDto.currentWeather!!.weatherCode!!))
-    }
 
-    private fun WeatherDto.isDataValid(){
-        this.hourlyWeather ?: throw DataIsNullException()
-        this.hourlyWeather.temperature2m ?: throw DataIsNullException()
-        this.hourlyWeather.time ?: throw DataIsNullException()
-        this.currentWeather ?: throw DataIsNullException()
-        this.currentWeather.weatherCode ?: throw DataIsNullException()
+        return Weather(hourlyData, getWeatherForeCast(weatherCode))
     }
-
 
     private fun getHourFromTimeString(time: String): Int {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")

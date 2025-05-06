@@ -7,15 +7,12 @@ import logic.model.Coordinate
 
 class CoordinateMapper {
     fun mapDtoToCoordinate(coordinateDto: CoordinateDto): Coordinate {
-        coordinateDto.isValidData()
-        return coordinateDto.citiesCoordinates!!.first()
-            .let { Coordinate(it.latitude!!, it.longitude!!)}
-    }
 
-    private fun CoordinateDto.isValidData(){
-        this.citiesCoordinates ?: throw DataIsNullException()
-        this.citiesCoordinates.firstOrNull()?: throw NoLocationFoundException()
-        this.citiesCoordinates.first().latitude ?: throw DataIsNullException()
-        this.citiesCoordinates.first().longitude ?: throw DataIsNullException()
+        val citiesCoordinates = coordinateDto.citiesCoordinates ?: throw DataIsNullException()
+        val firstCity = citiesCoordinates.firstOrNull() ?: throw NoLocationFoundException()
+        val latitude = firstCity.latitude ?: throw DataIsNullException()
+        val longitude = firstCity.longitude ?: throw DataIsNullException()
+
+        return Coordinate(latitude, longitude)
     }
 }
