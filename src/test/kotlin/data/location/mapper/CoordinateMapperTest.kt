@@ -2,7 +2,6 @@ package data.location.mapper
 
 import com.google.common.truth.Truth.assertThat
 import helper.createDtoLocation
-import helper.createDtoWeather
 import logic.exception.DataIsNullException
 import logic.exception.NoLocationFoundException
 import logic.model.Coordinate
@@ -32,7 +31,7 @@ class CoordinateMapperTest {
     }
 
     @Test
-    fun `mapDtoToCoordinate should throw DataIsNullException when citiesCoordinates is null`(){
+    fun `mapDtoToCoordinate should throw DataIsNullException when citiesCoordinates is null`() {
         //Given
         val dtoLocation = createDtoLocation(citiesCoordinates = null)
         //When & Then
@@ -40,7 +39,7 @@ class CoordinateMapperTest {
     }
 
     @Test
-    fun `mapDtoToCoordinate should throw NoLocationFoundException when citiesCoordinates firstOrNull is null`(){
+    fun `mapDtoToCoordinate should throw NoLocationFoundException when citiesCoordinates firstOrNull is null`() {
         //Given
         val dtoLocation = createDtoLocation(citiesCoordinates = listOf())
         //When & Then
@@ -48,7 +47,7 @@ class CoordinateMapperTest {
     }
 
     @Test
-    fun `mapDtoToCoordinate should throw DataIsNullException when citiesCoordinates first latitude is null`(){
+    fun `mapDtoToCoordinate should throw DataIsNullException when citiesCoordinates first latitude is null`() {
         //Given
         val dtoLocation = createDtoLocation(latitude = null)
         //When & Then
@@ -56,7 +55,7 @@ class CoordinateMapperTest {
     }
 
     @Test
-    fun `mapDtoToCoordinate should throw DataIsNullException when citiesCoordinates first longitude is null`(){
+    fun `mapDtoToCoordinate should throw DataIsNullException when citiesCoordinates first longitude is null`() {
         //Given
         val dtoLocation = createDtoLocation(longitude = null)
         //When & Then
