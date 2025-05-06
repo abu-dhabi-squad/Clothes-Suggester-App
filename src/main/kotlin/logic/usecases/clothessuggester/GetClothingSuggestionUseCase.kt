@@ -9,8 +9,8 @@ import logic.repository.ClothesRepository
 
 class GetClothingSuggestionUseCase(private val clothesRepository: ClothesRepository) {
     fun getSuggestedClothes(weather: Weather): List<Cloth> {
-        val averageTemp = calculateAverageTemperature(weather)
-        val clothType = getClothType(averageTemp)
+        val averageTemprature = calculateAverageTemperature(weather)
+        val clothType = getClothType(averageTemprature)
         val clothes = clothesRepository.getClothByType(clothType)
 
         return clothes.takeIf { it.isNotEmpty() }
@@ -23,11 +23,11 @@ class GetClothingSuggestionUseCase(private val clothesRepository: ClothesReposit
         return temperatures.average()
     }
 
-    private fun getClothType(temp: Double): ClothType = when {
-        temp < 0 -> ClothType.VERY_HEAVY
-        temp < 5 -> ClothType.HEAVY
-        temp < 15 -> ClothType.MEDIUM
-        temp < 22 -> ClothType.LIGHT
+    private fun getClothType(averageTemprature: Double): ClothType = when {
+        averageTemprature < 0 -> ClothType.VERY_HEAVY
+        averageTemprature < 5 -> ClothType.HEAVY
+        averageTemprature < 15 -> ClothType.MEDIUM
+        averageTemprature < 22 -> ClothType.LIGHT
         else -> ClothType.VERY_LIGHT
     }
 }
