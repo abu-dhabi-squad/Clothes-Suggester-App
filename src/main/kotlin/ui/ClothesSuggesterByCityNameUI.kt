@@ -1,4 +1,4 @@
-package main.kotlin.ui
+package ui
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -6,29 +6,29 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import logic.clothesSuggester.SuggestClothesUseCase
-import logic.location.GetCoordinateByCityAndCountryUseCase
+import logic.usecases.clothesSuggester.GetClothingSuggestionUseCase
 import logic.model.Cloth
-import logic.weather.GetDailyWeatherByCoordinateUseCase
-
-import presentation.ui_io.InputReader
-import presentation.ui_io.Printer
+import logic.usecases.location.GetCoordinateByCityAndCountryUseCase
+import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
+import ui.io.InputReader
+import ui.io.Printer
 
 class ClothesSuggesterByCityNameUI(
     private val printer: Printer,
     private val inputReader: InputReader,
     private val getCoordinateByCityAndCountryUseCase: GetCoordinateByCityAndCountryUseCase,
     private val getDailyWeatherByCoordinateUseCase: GetDailyWeatherByCoordinateUseCase,
-    private val getSuggestedClothes: SuggestClothesUseCase
+    private val getSuggestedClothes: GetClothingSuggestionUseCase
 ) : UiLauncher {
 
     private var suggestedClothes: List<Cloth>? = null
-    val customCoroutineScope = CoroutineScope(Dispatchers.Default)
+    private lateinit var customCoroutineScope: CoroutineScope
     override fun launchUi() {
         val cityName = promptNonEmptyString("Enter city name: ")
         val countryName = promptNonEmptyString("Enter country name: ")
+        customCoroutineScope = CoroutineScope(Dispatchers.Default)
         loading()
-        runBlocking {
+        runBlocking(Dispatchers.Default) {
             onGetSuggestingClothesExecute(cityName, countryName)
             suggestedClothes?.let {
                 displaySuggestedClothes(it)
@@ -51,9 +51,9 @@ class ClothesSuggesterByCityNameUI(
             while (true) {
                 for (char in "Loading ...") {
                     printer.display(char)
-                    delay(250)
+                    delay(200)
                 }
-                printer.display("\r ")
+                printer.display("\r")
             }
         }
     }
@@ -61,21 +61,24 @@ class ClothesSuggesterByCityNameUI(
     private suspend fun onGetSuggestingClothesExecute(cityName: String, countryName: String) {
         try {
             val coordinate =
-                getCoordinateByCityAndCountryUseCase.getCoordinateByCityAndCountry(cityName = cityName, country = countryName)
+                getCoordinateByCityAndCountryUseCase.getCoordinateByCityAndCountry(
+                    cityName = cityName,
+                    country = countryName
+                )
             val weather = getDailyWeatherByCoordinateUseCase.getDailyWeather(coordinate)
             suggestedClothes = getSuggestedClothes.getSuggestedClothes(weather)
-        } catch (ex: Exception) {
-            printer.display(ex.message)
+        } catch (exception: Exception) {
+            printer.display("\r")
+            printer.displayLn(exception.message)
         }
     }
 
     private fun displaySuggestedClothes(clothes: List<Cloth>) {
-        printer.displayLn("\n👕 Suggested Clothes:\n")
+        printer.displayLn("\r\n👕 Suggested Clothes:\n")
         clothes.forEachIndexed { index, cloth ->
             printer.displayLn(
                 """
                 ${index + 1}. ✨ ${cloth.name.uppercase()} ✨
-                   • Type: ${cloth.type}
                 """.trimIndent()
             )
         }
