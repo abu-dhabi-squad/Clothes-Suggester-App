@@ -2,7 +2,7 @@ package data.location.repository
 
 import helper.createDtoLocation
 import com.google.common.truth.Truth.assertThat
-import data.location.datasource.LocationDataSource
+import data.location.datasource.LocationRemoteDataSource
 import data.location.mapper.CityLocationMapper
 import data.location.mapper.IpLocationMapper
 import io.mockk.coEvery
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 class LocationRepositoryImplTest {
-    private lateinit var remoteDataSource: LocationDataSource
+    private lateinit var remoteDataSource: LocationRemoteDataSource
     private lateinit var cityLocationMapper: CityLocationMapper
     private lateinit var locationRepository: LocationRepository
     private lateinit var ipLocationMapper : IpLocationMapper

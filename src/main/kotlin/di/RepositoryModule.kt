@@ -3,17 +3,17 @@ package di
 import data.clothes.datasource.ClothesDataSource
 import data.clothes.datasource.MemoryClothesDataSource
 import data.clothes.repository.ClothesRepositoryImpl
-import data.location.datasource.ApiLocationDataSource
-import data.location.datasource.LocationDataSource
+import data.location.datasource.LocationRemoteDataSourceImpl
+import data.location.datasource.LocationRemoteDataSource
 import data.location.mapper.CityLocationMapper
 import data.location.mapper.IpLocationMapper
-import data.location.model.IpLocationDto
 import data.location.repository.LocationRepositoryImpl
-import data.weather.datasource.ApiWeatherDataSource
-import data.weather.datasource.WeatherDataSource
+import data.weather.datasource.WeatherRemoteDataSourceImpl
+import data.weather.datasource.WeatherRemoteDataSource
 import data.weather.mapper.WeatherMapper
 import data.weather.repository.WeatherRepositoryImpl
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.*
 import logic.repository.ClothesRepository
 import logic.repository.LocationRepository
 import logic.repository.WeatherRepository
@@ -25,10 +25,10 @@ val repositoryModule = module {
     single<WeatherRepository> { WeatherRepositoryImpl(get(), get()) }
     single <ClothesRepository>{ClothesRepositoryImpl(get())  }
     // datasource
-    single<WeatherDataSource> { ApiWeatherDataSource(get()) }
-    single<LocationDataSource> { ApiLocationDataSource(get()) }
+    single<WeatherRemoteDataSource> { WeatherRemoteDataSourceImpl(get()) }
+    single<LocationRemoteDataSource> { LocationRemoteDataSourceImpl(get()) }
     single<ClothesDataSource> {  MemoryClothesDataSource()}
-    single<HttpClient> { HttpClient() }
+    single<HttpClient> { HttpClient(CIO) }
     // mapper
     single { CityLocationMapper() }
     single { WeatherMapper() }

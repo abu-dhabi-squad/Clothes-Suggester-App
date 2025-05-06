@@ -4,5 +4,5 @@ import logic.model.LocationCoordinate
 
 interface LocationRepository {
     suspend fun getCoordinateByCityAndCountry(cityName: String, country: String) : LocationCoordinate
-    suspend fun getCoordinateByIp(): LocationCoordinate
+    suspend fun getLocationByIp(): LocationCoordinate
 }

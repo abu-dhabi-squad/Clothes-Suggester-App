@@ -3,6 +3,6 @@ package data.weather.datasource
 import data.weather.model.WeatherDto
 import logic.model.LocationCoordinate
 
-interface WeatherDataSource {
+interface WeatherRemoteDataSource {
     suspend fun getDailyWeatherByCoordinate(locationCoordinate: LocationCoordinate): WeatherDto
 }

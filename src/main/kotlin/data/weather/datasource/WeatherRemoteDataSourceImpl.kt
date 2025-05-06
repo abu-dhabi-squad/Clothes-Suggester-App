@@ -7,9 +7,9 @@ import io.ktor.client.statement.*
 import kotlinx.serialization.json.Json
 import logic.model.LocationCoordinate
 
-class ApiWeatherDataSource (private val client: HttpClient) : WeatherDataSource {
+class WeatherRemoteDataSourceImpl (private val client: HttpClient) : WeatherRemoteDataSource {
     override suspend fun getDailyWeatherByCoordinate(locationCoordinate: LocationCoordinate): WeatherDto {
-        val response = client.get(WEATHER_URL){
+        val response = client.get(BASE_WEATHER_URL){
             url {
                 parameters.append("latitude", locationCoordinate.latitude.toString())
                 parameters.append("longitude", locationCoordinate.longitude.toString())
@@ -22,6 +22,6 @@ class ApiWeatherDataSource (private val client: HttpClient) : WeatherDataSource 
        return Json.decodeFromString<WeatherDto>(response.bodyAsText())
     }
     companion object{
-        private const val WEATHER_URL = "https://api.open-meteo.com/v1/forecast"
+        private const val BASE_WEATHER_URL = "https://api.open-meteo.com/v1/forecast"
     }
 }

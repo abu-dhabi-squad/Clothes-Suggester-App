@@ -1,13 +1,13 @@
 package data.location.repository
 
-import data.location.datasource.LocationDataSource
+import data.location.datasource.LocationRemoteDataSource
 import data.location.mapper.CityLocationMapper
 import data.location.mapper.IpLocationMapper
 import logic.model.LocationCoordinate
 import logic.repository.LocationRepository
 
 class LocationRepositoryImpl(
-    private val remoteDataSource: LocationDataSource,
+    private val remoteDataSource: LocationRemoteDataSource,
     private val cityLocationMapper: CityLocationMapper,
     private val ipLocationMapper: IpLocationMapper
 ) : LocationRepository {
@@ -20,8 +20,7 @@ class LocationRepositoryImpl(
         )
     }
 
-    override suspend fun getCoordinateByIp(): LocationCoordinate {
-        return ipLocationMapper.mapDtoToCoordinate(remoteDataSource.getCoordinateByIp())
+    override suspend fun getLocationByIp(): LocationCoordinate {
+        return ipLocationMapper.mapDtoToCoordinate(remoteDataSource.getLocationByIp())
     }
-
 }

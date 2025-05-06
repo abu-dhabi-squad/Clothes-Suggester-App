@@ -9,29 +9,29 @@ import io.ktor.client.request.url
 import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.json.Json
 
-class ApiLocationDataSource(
+class LocationRemoteDataSourceImpl(
     private val client: HttpClient,
-) : LocationDataSource {
+) : LocationRemoteDataSource {
     override suspend fun getLocationByCityAndCountry(
         cityName: String,
         country: String
     ): CityLocationDto {
         val response = client.get {
-            url(LOCATION_URL_BY_CITY_NAME)
+            url(BASE_CITY_LOCATION_URL)
             parameter("name", "$cityName,$country")
         }
         return Json.decodeFromString<CityLocationDto>(response.bodyAsText())
     }
-    override suspend fun getCoordinateByIp(): IpLocationDto {
+    override suspend fun getLocationByIp(): IpLocationDto {
         val response = client.get {
-            url(LOCATION_URL_BY_IP)
+            url(BASE_IP_LOCATION_URL)
         }
         return Json.decodeFromString<IpLocationDto>(response.bodyAsText())
     }
 
     companion object {
-        private const val LOCATION_URL_BY_CITY_NAME =
+        private const val BASE_CITY_LOCATION_URL =
             "https://geocoding-api.open-meteo.com/v1/search"
-        private const val LOCATION_URL_BY_IP = "http://ip-api.com/json/"
+        private const val BASE_IP_LOCATION_URL = "http://ip-api.com/json/"
     }
 }
