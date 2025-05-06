@@ -7,7 +7,10 @@ import io.ktor.client.statement.*
 import kotlinx.serialization.json.Json
 import logic.model.LocationCoordinate
 
-class WeatherRemoteDataSourceImpl (private val client: HttpClient) : WeatherRemoteDataSource {
+class WeatherRemoteDataSourceImpl (
+    private val client: HttpClient,
+    private val json: Json,
+) : WeatherRemoteDataSource {
     override suspend fun getDailyWeatherByCoordinate(locationCoordinate: LocationCoordinate): WeatherDto {
         val response = client.get(BASE_WEATHER_URL){
             url {
@@ -19,7 +22,7 @@ class WeatherRemoteDataSourceImpl (private val client: HttpClient) : WeatherRemo
                 parameters.append("forecast_days", "1")
             }
         }
-       return Json.decodeFromString<WeatherDto>(response.bodyAsText())
+       return json.decodeFromString<WeatherDto>(response.bodyAsText())
     }
     companion object{
         private const val BASE_WEATHER_URL = "https://api.open-meteo.com/v1/forecast"

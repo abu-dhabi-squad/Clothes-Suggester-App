@@ -14,6 +14,7 @@ import data.weather.mapper.WeatherMapper
 import data.weather.repository.WeatherRepositoryImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.*
+import kotlinx.serialization.json.Json
 import logic.repository.ClothesRepository
 import logic.repository.LocationRepository
 import logic.repository.WeatherRepository
@@ -24,9 +25,11 @@ val repositoryModule = module {
     single<LocationRepository> { LocationRepositoryImpl(get(), get(),get()) }
     single<WeatherRepository> { WeatherRepositoryImpl(get(), get()) }
     single <ClothesRepository>{ClothesRepositoryImpl(get())  }
+    // json serializable
+    single { Json{ignoreUnknownKeys = true} }
     // datasource
-    single<WeatherRemoteDataSource> { WeatherRemoteDataSourceImpl(get()) }
-    single<LocationRemoteDataSource> { LocationRemoteDataSourceImpl(get()) }
+    single<WeatherRemoteDataSource> { WeatherRemoteDataSourceImpl(get(), get()) }
+    single<LocationRemoteDataSource> { LocationRemoteDataSourceImpl(get(), get()) }
     single<ClothesMemoryDataSource> {  ClothesMemoryDataSourceImp()}
     single<HttpClient> { HttpClient(CIO) }
     // mapper
