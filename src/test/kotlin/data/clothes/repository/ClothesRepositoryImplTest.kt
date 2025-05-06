@@ -1,7 +1,7 @@
 package data.clothes.repository
 
 import com.google.common.truth.Truth.assertThat
-import data.clothes.datasource.MemoryClothesDataSource
+import data.clothes.datasource.ClothesMemoryDataSource
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 import java.util.*
 
 class ClothesRepositoryImplTest{
-    private lateinit var dataSource: MemoryClothesDataSource
+    private lateinit var dataSource: ClothesMemoryDataSource
     private lateinit var repository: ClothesRepositoryImpl
 
     @BeforeEach
