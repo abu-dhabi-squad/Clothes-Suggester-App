@@ -11,3 +11,7 @@ class InvalidCountryNameException : DomainExceptions("Invalid country name")
 class NoHourlyTemperatureFound : DomainExceptions("no hourly temperature found")
 
 class UnKnownWeatherConditionException : DomainExceptions("unknown weather code found")
+
+class MissingTemperaturesException:DomainExceptions("No temperatures found in this list")
+
+class NoMatchingClothesFoundException:DomainExceptions("No Clothes found in this list")

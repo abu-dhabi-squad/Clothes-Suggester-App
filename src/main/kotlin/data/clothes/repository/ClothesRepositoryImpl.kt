@@ -1,14 +1,14 @@
 package data.clothes.repository
 
-import data.clothes.datasource.ClothesDataSource
+import data.clothes.datasource.ClothesMemoryDataSource
 import logic.model.Cloth
 import logic.model.ClothType
 import logic.repository.ClothesRepository
 
 class ClothesRepositoryImpl(
-    private val dataSource: ClothesDataSource,
+    private val dataSource: ClothesMemoryDataSource,
 ) : ClothesRepository {
-    override fun getClothesByType(clothType: ClothType): List<Cloth> {
+    override fun getClothByType(clothType: ClothType): List<Cloth> {
         return dataSource.getClothesByType(clothType)
     }
 }
