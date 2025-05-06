@@ -1,7 +1,10 @@
 package logic.clothesSuggester
 
 import com.google.common.truth.Truth.assertThat
+import helper.createWeather
 import io.mockk.*
+import logic.exception.EmptyClotheListException
+import logic.exception.EmptyTemperatureListException
 import logic.model.*
 import logic.repository.ClothesRepository
 import org.junit.jupiter.api.Assertions.*
@@ -95,5 +98,29 @@ class SuggestClothesUseCaseTest{
 
         verify { clothesRepository.getClothesByType(ClothType.VERY_LIGHT) }
         assertThat(result).isEqualTo(expected)
+    }
+
+    @Test
+    fun `getSuggestedClothes should throw EmptyTemperatureListException when hourlyTemperatures is empty`() {
+        val weather = createWeather()
+
+        val exception = assertThrows(EmptyTemperatureListException::class.java) {
+            useCase.getSuggestedClothes(weather)
+        }
+
+        assertThat(exception).isInstanceOf(EmptyTemperatureListException::class.java)
+    }
+
+    @Test
+    fun `getSuggestedClothes should throw EmptyClotheListException when repository returns empty list`() {
+        val weather =  createWeather(listOf(HourlyTemperature(10.0,1)))
+        every { clothesRepository.getClothesByType(ClothType.MEDIUM) } returns listOf()
+
+        val exception = assertThrows(EmptyClotheListException::class.java) {
+            useCase.getSuggestedClothes(weather)
+        }
+
+        assertThat(exception).isInstanceOf(EmptyClotheListException::class.java)
+        verify { clothesRepository.getClothesByType(ClothType.MEDIUM) }
     }
 }
