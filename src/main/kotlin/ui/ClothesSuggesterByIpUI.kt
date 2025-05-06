@@ -53,6 +53,7 @@ class ClothesSuggesterByIpUI(
             suggestedClothes = getSuggestedClothes.getSuggestedClothes(weather)
         } catch (exception: Exception) {
             printer.display("\r")
+            suggestedClothes = null
             printer.displayLn(exception.message)
         }
     }
