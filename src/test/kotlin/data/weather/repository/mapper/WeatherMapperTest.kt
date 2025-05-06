@@ -25,64 +25,57 @@ class WeatherMapperTest {
     }
 
     @Test
-    fun `mapDtoToWeather should throw DataIsNullException when hourlyWeather is null`(){
+    fun `mapDtoToWeather should throw DataIsNullException when hourlyWeather is null`() {
         //Given
         val dtoWeather = createDtoWeather(null, 0)
         //When & Then
-        assertThrows<DataIsNullException> {
-            weatherMapper.mapDtoToWeather(dtoWeather)
-        }
+        assertThrows<DataIsNullException> { weatherMapper.mapDtoToWeather(dtoWeather) }
     }
 
     @Test
-    fun `mapDtoToWeather should throw DataIsNullException when hourlyWeather temperature2m is null`(){
+    fun `mapDtoToWeather should throw DataIsNullException when hourlyWeather temperature2m is null`() {
         //Given
         val dtoWeather = createDtoWeather(HourlyWeather(null, listOf("2025-05-05T15:00"), listOf(0)), 0)
         //When & Then
-        assertThrows<DataIsNullException> {
-            weatherMapper.mapDtoToWeather(dtoWeather)
-        }
+        assertThrows<DataIsNullException> { weatherMapper.mapDtoToWeather(dtoWeather) }
     }
 
     @Test
-    fun `mapDtoToWeather should throw DataIsNullException when hourlyWeather time is null`(){
+    fun `mapDtoToWeather should throw DataIsNullException when hourlyWeather time is null`() {
         //Given
         val dtoWeather = createDtoWeather(HourlyWeather(listOf(10.0), null, listOf(0)), 0)
         //When & Then
-        assertThrows<DataIsNullException> {
-            weatherMapper.mapDtoToWeather(dtoWeather)
-        }
+        assertThrows<DataIsNullException> { weatherMapper.mapDtoToWeather(dtoWeather) }
     }
 
     @Test
-    fun `mapDtoToWeather should throw DataIsNullException when currentWeather is null`(){
+    fun `mapDtoToWeather should throw DataIsNullException when currentWeather is null`() {
         //Given
-        val dtoWeather = createDtoWeather(HourlyWeather(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)),0, null)
+        val dtoWeather = createDtoWeather(HourlyWeather(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)), 0, null)
         //When & Then
-        assertThrows<DataIsNullException> {
-            weatherMapper.mapDtoToWeather(dtoWeather)
-        }
+        assertThrows<DataIsNullException> { weatherMapper.mapDtoToWeather(dtoWeather) }
     }
 
     @Test
-    fun `mapDtoToWeather should throw DataIsNullException when currentWeather code is null`(){
+    fun `mapDtoToWeather should throw DataIsNullException when currentWeather code is null`() {
         //Given
-        val dtoWeather = createDtoWeather(HourlyWeather(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)),null)
+        val dtoWeather = createDtoWeather(HourlyWeather(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)), null)
         //When & Then
-        assertThrows<DataIsNullException> {
-            weatherMapper.mapDtoToWeather(dtoWeather)
-        }
+        assertThrows<DataIsNullException> { weatherMapper.mapDtoToWeather(dtoWeather) }
     }
 
     @ParameterizedTest
     @MethodSource("provideWeatherParams")
     fun `mapDtoToWeather should return weather when data is valid`(
         weatherCode: Int,
-        WeatherCondition: WeatherCondition
+        weatherCondition: WeatherCondition
     ) {
         //Given
-        val dtoWeather = createDtoWeather(hourlyWeather = HourlyWeather(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)), weatherCode)
-        val expectedWeather = Weather(listOf(HourlyTemperature(10.0, 15)), WeatherCondition)
+        val dtoWeather = createDtoWeather(
+            hourlyWeather = HourlyWeather(listOf(10.0), listOf("2025-05-05T15:00"), listOf(0)),
+            weatherCode
+        )
+        val expectedWeather = Weather(listOf(HourlyTemperature(10.0, 15)), weatherCondition)
         //When
         val actualWeather = weatherMapper.mapDtoToWeather(dtoWeather)
         //Then

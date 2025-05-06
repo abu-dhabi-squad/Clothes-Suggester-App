@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CoordinateDto(
     @SerialName("generationtime_ms")
-    val generationTimeMs: Double,
+    val generationTimeMs: Double?,
     @SerialName("results")
-    val citiesCoordinates: List<CoordinateResult> = emptyList()
+    val citiesCoordinates: List<CoordinateResult>?
 )

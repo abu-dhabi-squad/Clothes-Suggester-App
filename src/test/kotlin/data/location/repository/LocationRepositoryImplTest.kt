@@ -31,8 +31,8 @@ class LocationRepositoryImplTest {
         // Given
         val city = "city"
         val country = "country"
-        val expectedLocationDto = createDtoLocation()
-        val expectedLocation = Coordinate(expectedLocationDto.citiesCoordinates.first().latitude, expectedLocationDto.citiesCoordinates.first().longitude)
+        val expectedLocationDto = createDtoLocation(latitude = 0.0, longitude = 0.0)
+        val expectedLocation = Coordinate(latitude = 0.0, longitude = 0.0)
         coEvery { remoteDataSource.getLocationByCityAndCountry(any(), any()) } returns expectedLocationDto
         coEvery { coordinateMapper.mapDtoToCoordinate(expectedLocationDto) } returns expectedLocation
 
