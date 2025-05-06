@@ -10,10 +10,8 @@ fun createDtoLocation(
     citiesCoordinates: List<CityLocationDetailsDto>? = listOf(CityLocationDetailsDto(
         latitude = latitude,
         longitude = longitude,
-        admin1 = "",
         country = "",
         countryCode = "",
-        admin1Id = 0,
         countryId = 0,
         elevation = 0.0,
         featureCode = "",
