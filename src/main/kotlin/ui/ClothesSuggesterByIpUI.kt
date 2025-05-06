@@ -7,7 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import logic.model.Cloth
-import logic.usecases.clothesSuggester.SuggestClothesUseCase
+import logic.usecases.clothessuggester.GetClothingSuggestionUseCase
 import logic.usecases.location.GetCoordinateByIpUseCase
 import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
 
@@ -17,7 +17,7 @@ class ClothesSuggesterByIpUI(
     private val printer: Printer,
     private val getCoordinateByIpUseCase: GetCoordinateByIpUseCase,
     private val getDailyWeatherByCoordinateUseCase: GetDailyWeatherByCoordinateUseCase,
-    private val getSuggestedClothes: SuggestClothesUseCase
+    private val getSuggestedClothes: GetClothingSuggestionUseCase
 ) : UiLauncher {
 
     private var suggestedClothes: List<Cloth>? = null

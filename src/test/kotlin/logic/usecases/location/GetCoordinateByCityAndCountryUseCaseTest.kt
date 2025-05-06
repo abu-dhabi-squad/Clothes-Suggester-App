@@ -1,4 +1,4 @@
-package logic.location
+package logic.usecases.location
 
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
@@ -8,12 +8,11 @@ import logic.model.LocationCoordinate
 import logic.exception.InvalidCityNameException
 import logic.exception.InvalidCountryNameException
 import logic.repository.LocationRepository
-import logic.usecases.location.GetCoordinateByCityAndCountryUseCase
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-class GetLocationByCityAndCountryUseCaseTest {
+class GetCoordinateByCityAndCountryUseCaseTest {
     private lateinit var locationRepository: LocationRepository
     private lateinit var getCoordinateByCityAndCountryUseCase: GetCoordinateByCityAndCountryUseCase
 

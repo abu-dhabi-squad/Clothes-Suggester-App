@@ -5,7 +5,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import logic.model.Cloth
 import logic.model.ClothType
-import logic.usecases.clothesSuggester.SuggestClothesUseCase
+import logic.usecases.clothessuggester.GetClothingSuggestionUseCase
 import logic.usecases.location.GetCoordinateByIpUseCase
 import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
 import org.junit.jupiter.api.BeforeEach
@@ -17,7 +17,7 @@ class ClothesSuggesterByIpUITest {
     private lateinit var printer: Printer
     private lateinit var getCoordinateByIpUseCase: GetCoordinateByIpUseCase
     private lateinit var getDailyWeatherByCoordinateUseCase: GetDailyWeatherByCoordinateUseCase
-    private lateinit var getSuggestedClothes: SuggestClothesUseCase
+    private lateinit var getSuggestedClothes: GetClothingSuggestionUseCase
 
     @BeforeEach
     fun setup() {
