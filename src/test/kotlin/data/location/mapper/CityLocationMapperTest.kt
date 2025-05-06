@@ -2,7 +2,6 @@ package data.location.mapper
 
 import com.google.common.truth.Truth.assertThat
 import helper.createDtoLocation
-import logic.exception.DataIsNullException
 import logic.exception.NoLocationFoundException
 import logic.model.LocationCoordinate
 import org.junit.jupiter.api.BeforeEach
@@ -31,12 +30,12 @@ class CityLocationMapperTest {
     }
 
     @Test
-    fun `mapDtoToLocationCoordinate should throw DataIsNullException when citiesCoordinates is null`() {
+    fun `mapDtoToLocationCoordinate should throw NoLocationFoundException when citiesCoordinates is null`() {
         //Given
         val dtoLocation = createDtoLocation(citiesCoordinates = null)
         
         //When & Then
-        assertThrows<DataIsNullException> { locationMapper.mapDtoToLocationCoordinate(dtoLocation) }
+        assertThrows<NoLocationFoundException> { locationMapper.mapDtoToLocationCoordinate(dtoLocation) }
     }
 
     @Test
@@ -49,21 +48,21 @@ class CityLocationMapperTest {
     }
 
     @Test
-    fun `mapDtoToLocationCoordinate should throw DataIsNullException when citiesCoordinates first latitude is null`() {
+    fun `mapDtoToLocationCoordinate should throw NoLocationFoundException when citiesCoordinates first latitude is null`() {
         //Given
         val dtoLocation = createDtoLocation(latitude = null)
 
         //When & Then
-        assertThrows<DataIsNullException> { locationMapper.mapDtoToLocationCoordinate(dtoLocation) }
+        assertThrows<NoLocationFoundException> { locationMapper.mapDtoToLocationCoordinate(dtoLocation) }
     }
 
     @Test
-    fun `mapDtoToLocationCoordinate should throw DataIsNullException when citiesCoordinates first longitude is null`() {
+    fun `mapDtoToLocationCoordinate should throw NoLocationFoundException when citiesCoordinates first longitude is null`() {
         //Given
         val dtoLocation = createDtoLocation(longitude = null)
 
         //When & Then
-        assertThrows<DataIsNullException> { locationMapper.mapDtoToLocationCoordinate(dtoLocation) }
+        assertThrows<NoLocationFoundException> { locationMapper.mapDtoToLocationCoordinate(dtoLocation) }
     }
 
     @Test

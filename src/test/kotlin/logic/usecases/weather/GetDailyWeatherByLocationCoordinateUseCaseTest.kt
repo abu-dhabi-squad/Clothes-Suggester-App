@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.BeforeTest
 
-class GetDailyWeatherWeatherByCoordinateUseCaseTest {
+class GetDailyWeatherByLocationCoordinateUseCaseTest {
 
     private lateinit var weatherRepository: WeatherRepository
     private lateinit var getDailyWeatherByCoordinate: GetDailyWeatherByCoordinateUseCase

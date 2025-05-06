@@ -7,31 +7,31 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class IpLocationDto(
     @SerialName("as")
-    var asX: String = "",
+    var asX: String?,
     @SerialName("city")
-    var city: String = "",
+    var city: String?,
     @SerialName("country")
-    var country: String = "",
+    var country: String?,
     @SerialName("countryCode")
-    var countryCode: String = "",
+    var countryCode: String?,
     @SerialName("isp")
-    var isp: String = "",
+    var isp: String?,
     @SerialName("lat")
-    var lat: Double = 0.0,
+    var lat: Double?,
     @SerialName("lon")
-    var lon: Double = 0.0,
+    var lon: Double?,
     @SerialName("org")
-    var org: String = "",
+    var org: String?,
     @SerialName("query")
-    var query: String = "",
+    var query: String?,
     @SerialName("region")
-    var region: String = "",
+    var region: String?,
     @SerialName("regionName")
-    var regionName: String = "",
+    var regionName: String?,
     @SerialName("status")
-    var status: String = "",
+    var status: String?,
     @SerialName("timezone")
-    var timezone: String = "",
+    var timezone: String?,
     @SerialName("zip")
-    var zip: String = ""
+    var zip: String?,
 )

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-class GetLocationByCityAndCountryUseCaseTest {
+class GetCoordinateByCityAndCountryUseCaseTest {
     private lateinit var locationRepository: LocationRepository
     private lateinit var getCoordinateByCityAndCountryUseCase: GetCoordinateByCityAndCountryUseCase
 
