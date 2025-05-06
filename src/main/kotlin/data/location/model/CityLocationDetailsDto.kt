@@ -6,10 +6,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CityLocationDetailsDto(
-    @SerialName("admin1")
-    val admin1: String?,
-    @SerialName("admin1_id")
-    val admin1Id: Int?,
     @SerialName("country")
     val country: String?,
     @SerialName("country_code")
