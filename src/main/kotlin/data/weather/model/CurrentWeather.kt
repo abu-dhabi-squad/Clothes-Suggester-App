@@ -7,11 +7,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CurrentWeather(
     @SerialName("interval")
-    val interval: Int,
+    val interval: Int?,
     @SerialName("temperature_2m")
-    val temperature2m: Double,
+    val temperature2m: Double?,
     @SerialName("time")
-    val time: String,
+    val time: String?,
     @SerialName("weather_code")
-    val weatherCode: Int
+    val weatherCode: Int?
 )

@@ -1,6 +1,7 @@
 package data.weather.mapper
 
 import data.weather.model.WeatherDto
+import logic.exception.DataIsNullException
 import logic.model.HourlyTemperature
 import logic.model.Weather
 import logic.model.WeatherCondition
@@ -9,11 +10,23 @@ import java.time.format.DateTimeFormatter
 
 class WeatherMapper {
     fun mapDtoToWeather(weatherDto: WeatherDto): Weather {
-        val hourlyTemperature = weatherDto.hourlyWeather.temperature2m.zip(weatherDto.hourlyWeather.time) { temp, time ->
+
+        weatherDto.isDataValid()
+
+        val hourlyTemperature = weatherDto.hourlyWeather!!.temperature2m!!.zip(weatherDto.hourlyWeather.time!!) { temp, time ->
             HourlyTemperature(temp, getHourFromTimeString(time))
         }
-        return Weather(hourlyTemperature, getWeatherForeCast(weatherDto.currentWeather.weatherCode))
+        return Weather(hourlyTemperature, getWeatherForeCast(weatherDto.currentWeather!!.weatherCode!!))
     }
+
+    private fun WeatherDto.isDataValid(){
+        this.hourlyWeather ?: throw DataIsNullException()
+        this.hourlyWeather.temperature2m ?: throw DataIsNullException()
+        this.hourlyWeather.time ?: throw DataIsNullException()
+        this.currentWeather ?: throw DataIsNullException()
+        this.currentWeather.weatherCode ?: throw DataIsNullException()
+    }
+
 
     private fun getHourFromTimeString(time: String): Int {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
