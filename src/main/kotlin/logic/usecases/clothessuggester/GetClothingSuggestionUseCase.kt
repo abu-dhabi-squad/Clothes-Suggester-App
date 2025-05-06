@@ -9,8 +9,8 @@ import logic.repository.ClothesRepository
 
 class GetClothingSuggestionUseCase(private val clothesRepository: ClothesRepository) {
     fun getSuggestedClothes(weather: Weather): List<Cloth> {
-        val averageTemp = calculateAverageTemperature(weather)
-        val clothType = getClothType(averageTemp)
+        val averageTemprature = calculateAverageTemperature(weather)
+        val clothType = getClothType(averageTemprature)
         val clothes = clothesRepository.getClothByType(clothType)
 
         return clothes.takeIf { it.isNotEmpty() }
