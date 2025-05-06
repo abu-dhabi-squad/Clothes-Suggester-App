@@ -6,7 +6,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import logic.clothesSuggester.SuggestClothesUseCase
+import logic.clothesSuggester.GetClothingSuggestionUseCase
 import logic.location.GetCoordinateByCityAndCountryUseCase
 import logic.model.Cloth
 import logic.weather.GetDailyWeatherByCoordinateUseCase
@@ -19,7 +19,7 @@ class ClothesSuggesterByCityNameUI(
     private val inputReader: InputReader,
     private val getCoordinateByCityAndCountryUseCase: GetCoordinateByCityAndCountryUseCase,
     private val getDailyWeatherByCoordinateUseCase: GetDailyWeatherByCoordinateUseCase,
-    private val getSuggestedClothes: SuggestClothesUseCase
+    private val getSuggestedClothes: GetClothingSuggestionUseCase
 ) : UiLauncher {
 
     private var suggestedClothes: List<Cloth>? = null

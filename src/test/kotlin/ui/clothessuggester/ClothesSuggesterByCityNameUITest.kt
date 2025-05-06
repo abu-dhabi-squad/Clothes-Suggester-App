@@ -5,7 +5,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import logic.clothesSuggester.SuggestClothesUseCase
+import logic.clothesSuggester.GetClothingSuggestionUseCase
 import logic.location.GetCoordinateByCityAndCountryUseCase
 import logic.model.Cloth
 import logic.model.ClothType
@@ -25,7 +25,7 @@ class ClothesSuggesterByCityNameUITest {
     private lateinit var printer: Printer
     private lateinit var getCoordinateByCityAndCountryUseCase: GetCoordinateByCityAndCountryUseCase
     private lateinit var getDailyWeatherByCoordinateUseCase: GetDailyWeatherByCoordinateUseCase
-    private lateinit var getSuggestedClothes: SuggestClothesUseCase
+    private lateinit var getSuggestedClothes: GetClothingSuggestionUseCase
 
     @BeforeEach
     fun setup() {

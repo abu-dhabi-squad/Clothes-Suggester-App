@@ -1,19 +1,18 @@
 package data.clothes.repository
 
 import com.google.common.truth.Truth.assertThat
-import data.clothes.datasource.ClothesDataSource
+import data.clothes.datasource.MemoryClothesDataSource
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import logic.model.Cloth
 import logic.model.ClothType
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.util.*
 
 class ClothesRepositoryImplTest{
-    private lateinit var dataSource: ClothesDataSource
+    private lateinit var dataSource: MemoryClothesDataSource
     private lateinit var repository: ClothesRepositoryImpl
 
     @BeforeEach
@@ -33,7 +32,7 @@ class ClothesRepositoryImplTest{
         every { dataSource.getClothesByType(type) } returns expectedClothes
 
         // When
-        val result = repository.getClothesByType(type)
+        val result = repository.getClothByType(type)
 
         // Then
         verify { dataSource.getClothesByType(type) }
