@@ -14,6 +14,6 @@ class SuggestClothesUseCase(private val clothesRepository: ClothesRepository) {
             avgTemp in 15.0 ..< 25.0 -> ClothType.LIGHT
             else ->ClothType.VERY_LIGHT
         }
-        return clothesRepository.getClothesByType(tempBasedType)
+        return clothesRepository.getClothByType(tempBasedType)
     }
 }

@@ -12,7 +12,6 @@ import ui.io.InputReader
 import ui.io.Printer
 
 val uiModule = module {
-
     // I/O dependencies
     single<Printer> { ConsolePrinter() }
     single<InputReader> { ConsoleReader() }

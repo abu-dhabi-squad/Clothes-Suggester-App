@@ -1,7 +1,7 @@
 package di
 
-import data.clothes.datasource.ClothesDataSource
-import data.clothes.datasource.MemoryClothesDataSource
+import data.clothes.datasource.ClothesMemoryDataSource
+import data.clothes.datasource.ClothesMemoryDataSourceImp
 import data.clothes.repository.ClothesRepositoryImpl
 import data.location.datasource.LocationRemoteDataSourceImpl
 import data.location.datasource.LocationRemoteDataSource
@@ -27,7 +27,7 @@ val repositoryModule = module {
     // datasource
     single<WeatherRemoteDataSource> { WeatherRemoteDataSourceImpl(get()) }
     single<LocationRemoteDataSource> { LocationRemoteDataSourceImpl(get()) }
-    single<ClothesDataSource> {  MemoryClothesDataSource()}
+    single<ClothesMemoryDataSource> {  ClothesMemoryDataSourceImp()}
     single<HttpClient> { HttpClient(CIO) }
     // mapper
     single { CityLocationMapper() }

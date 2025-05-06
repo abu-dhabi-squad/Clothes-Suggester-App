@@ -5,7 +5,6 @@ import ui.ClothesSuggesterApp
 import org.koin.core.context.startKoin
 import org.koin.mp.KoinPlatform.getKoin
 
-
 fun main() {
     startKoin {
         modules(repositoryModule, useCaseModule, uiModule)
