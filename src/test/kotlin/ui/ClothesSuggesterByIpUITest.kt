@@ -8,10 +8,9 @@ import logic.model.ClothType
 import logic.usecases.clothesSuggester.SuggestClothesUseCase
 import logic.usecases.location.GetCoordinateByIpUseCase
 import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
-import main.kotlin.ui.ClothesSuggesterByIpUI
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import presentation.ui_io.Printer
+import ui.io.Printer
 
 class ClothesSuggesterByIpUITest {
     private lateinit var clothesSuggesterByIpUI: ClothesSuggesterByIpUI

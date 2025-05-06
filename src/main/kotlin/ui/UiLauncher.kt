@@ -1,4 +1,4 @@
-package main.kotlin.ui
+package ui
 
 
 interface UiLauncher {

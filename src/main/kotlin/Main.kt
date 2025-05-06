@@ -1,7 +1,7 @@
 import di.repositoryModule
 import di.uiModule
 import di.useCaseModule
-import main.kotlin.ui.ClothesSuggesterApp
+import ui.ClothesSuggesterApp
 import org.koin.core.context.startKoin
 import org.koin.mp.KoinPlatform.getKoin
 

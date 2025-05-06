@@ -1,15 +1,15 @@
 package di
 
-import main.kotlin.ui.ClothesSuggesterApp
-import main.kotlin.ui.ClothesSuggesterByCityNameUI
-import main.kotlin.ui.ClothesSuggesterByIpUI
-import main.kotlin.ui.UIFeature
+import ui.ClothesSuggesterApp
+import ui.ClothesSuggesterByCityNameUI
+import ui.ClothesSuggesterByIpUI
+import ui.UIFeature
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import presentation.ui_io.ConsolePrinter
-import presentation.ui_io.ConsoleReader
-import presentation.ui_io.InputReader
-import presentation.ui_io.Printer
+import ui.io.ConsolePrinter
+import ui.io.ConsoleReader
+import ui.io.InputReader
+import ui.io.Printer
 
 val uiModule = module {
 

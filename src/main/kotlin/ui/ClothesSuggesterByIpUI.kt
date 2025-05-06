@@ -1,4 +1,4 @@
-package main.kotlin.ui
+package ui
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +11,7 @@ import logic.usecases.clothesSuggester.SuggestClothesUseCase
 import logic.usecases.location.GetCoordinateByIpUseCase
 import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
 
-import presentation.ui_io.Printer
+import ui.io.Printer
 
 class ClothesSuggesterByIpUI(
     private val printer: Printer,
@@ -26,7 +26,6 @@ class ClothesSuggesterByIpUI(
         customCoroutineScope = CoroutineScope(Dispatchers.Default)
         loading()
         runBlocking(Dispatchers.Default) {
-            delay(3000)
             onGetSuggestingClothesExecute()
             suggestedClothes?.let {
                 displaySuggestedClothes(it)
@@ -49,8 +48,7 @@ class ClothesSuggesterByIpUI(
 
     private suspend fun onGetSuggestingClothesExecute() {
         try {
-            val coordinate =
-                getCoordinateByIpUseCase.getCoordinateByIp()
+            val coordinate = getCoordinateByIpUseCase.getCoordinateByIp()
             val weather = getDailyWeatherByCoordinateUseCase.getDailyWeather(coordinate)
             suggestedClothes = getSuggestedClothes.getSuggestedClothes(weather)
         } catch (exception: Exception) {

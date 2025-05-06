@@ -10,13 +10,13 @@ import logic.model.ClothType
 import logic.usecases.clothesSuggester.SuggestClothesUseCase
 import logic.usecases.location.GetCoordinateByCityAndCountryUseCase
 import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
-import main.kotlin.ui.ClothesSuggesterByCityNameUI
+import ui.ClothesSuggesterByCityNameUI
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import presentation.ui_io.InputReader
-import presentation.ui_io.Printer
+import ui.io.InputReader
+import ui.io.Printer
 
 class ClothesSuggesterByCityNameUITest {
 
