@@ -3,24 +3,25 @@ package data.location.mapper
 import com.google.common.truth.Truth.assertThat
 import helper.createDtoLocation
 import logic.exception.NoLocationFoundException
-import logic.model.Coordinate
+import logic.model.LocationCoordinate
+
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 class CoordinateMapperTest {
-    private lateinit var coordinateMapper: CoordinateMapper
+    private lateinit var coordinateMapper: CityLocationMapper
 
     @BeforeEach
     fun setup() {
-        coordinateMapper = CoordinateMapper()
+        coordinateMapper = CityLocationMapper()
     }
 
     @Test
     fun `mapDtoToCoordinate should return Coordinate`() {
         // Given
         val dtoLocation = createDtoLocation()
-        val expectedCoordinate = Coordinate(dtoLocation.citiesCoordinates.first().latitude, dtoLocation.citiesCoordinates.first().longitude)
+        val expectedCoordinate = LocationCoordinate(dtoLocation.citiesCoordinates.first().latitude, dtoLocation.citiesCoordinates.first().longitude)
 
         // When
         val actualCoordinate = coordinateMapper.mapDtoToCoordinate(dtoLocation)

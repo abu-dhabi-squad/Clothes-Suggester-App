@@ -1,4 +1,4 @@
-package logic.clothesSuggester
+package logic.usecases.clothesSuggester
 
 import logic.exception.NoMatchingClothesFoundException
 import logic.exception.MissingTemperaturesException

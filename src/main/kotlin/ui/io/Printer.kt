@@ -1,4 +1,4 @@
-package presentation.ui_io
+package ui.io
 
 interface Printer {
     fun display(input: Any? = "")

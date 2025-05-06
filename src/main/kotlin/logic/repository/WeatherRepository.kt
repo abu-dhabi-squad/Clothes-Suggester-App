@@ -1,8 +1,8 @@
 package logic.repository
 
-import logic.model.Coordinate
+import logic.model.LocationCoordinate
 import logic.model.Weather
 
 interface WeatherRepository {
-    suspend fun getDailyWeatherByCoordinate(coordinate: Coordinate): Weather
+    suspend fun getDailyWeatherByCoordinate(locationCoordinate: LocationCoordinate): Weather
 }

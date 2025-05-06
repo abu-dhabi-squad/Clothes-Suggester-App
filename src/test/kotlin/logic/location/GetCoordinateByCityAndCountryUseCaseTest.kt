@@ -4,10 +4,11 @@ import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
+import logic.model.LocationCoordinate
 import logic.exception.InvalidCityNameException
 import logic.exception.InvalidCountryNameException
-import logic.model.Coordinate
 import logic.repository.LocationRepository
+import logic.usecases.location.GetCoordinateByCityAndCountryUseCase
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -27,7 +28,7 @@ class GetLocationByCityAndCountryUseCaseTest {
         // Given
         val city = "city"
         val country = "country"
-        val expectedLocation = Coordinate(1.0, 2.0)
+        val expectedLocation = LocationCoordinate(1.0, 2.0)
         coEvery { locationRepository.getCoordinateByCityAndCountry(city, country) } returns expectedLocation
 
         // When

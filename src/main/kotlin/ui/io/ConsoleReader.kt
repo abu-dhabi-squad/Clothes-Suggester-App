@@ -1,4 +1,4 @@
-package presentation.ui_io
+package ui.io
 
 class ConsoleReader: InputReader {
     override fun readString(): String? {

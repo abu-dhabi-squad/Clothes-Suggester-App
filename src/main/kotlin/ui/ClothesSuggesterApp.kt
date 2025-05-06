@@ -1,7 +1,7 @@
-package main.kotlin.ui
+package ui
 
-import presentation.ui_io.InputReader
-import presentation.ui_io.Printer
+import ui.io.InputReader
+import ui.io.Printer
 import kotlin.system.exitProcess
 
 class ClothesSuggesterApp(
