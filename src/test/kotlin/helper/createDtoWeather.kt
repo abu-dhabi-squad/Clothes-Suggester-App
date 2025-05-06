@@ -3,12 +3,13 @@ package helper
 import data.weather.model.*
 
 fun createDtoWeather(
-    hourlyWeather: HourlyWeather = HourlyWeather(listOf(), listOf(), listOf()),
-    currentWeatherCode: Int = 0,
+    hourlyWeather: HourlyWeather? = HourlyWeather(listOf(), listOf(), listOf()),
+    currentWeatherCode: Int? = 0,
+    currentWeather: CurrentWeather? = CurrentWeather(0, 0.0, "", currentWeatherCode) ,
 ): WeatherDto {
 
     return WeatherDto(
-        currentWeather = CurrentWeather(0, 0.0, "", currentWeatherCode),
+        currentWeather = currentWeather,
         currentWeatherUnits = CurrentWeatherUnits("", "", "", ""),
         dailyWeather = DailyWeather(listOf(), listOf(), listOf(), listOf()),
         dailyWeatherUnits = DailyWeatherUnits("", "", "", ""),

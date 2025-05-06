@@ -15,7 +15,7 @@ class LocationRepositoryImpl(
         cityName: String,
         country: String
     ): LocationCoordinate {
-        return cityLocationMapper.mapDtoToCoordinate(
+        return cityLocationMapper.mapDtoToLocationCoordinate(
             remoteDataSource.getLocationByCityAndCountry(cityName, country)
         )
     }
