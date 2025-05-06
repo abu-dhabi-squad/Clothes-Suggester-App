@@ -1,4 +1,4 @@
-package logic.weather
+package logic.usecases.weather
 
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
@@ -11,7 +11,6 @@ import logic.model.HourlyTemperature
 import logic.model.Weather
 import logic.model.WeatherCondition
 import logic.repository.WeatherRepository
-import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.BeforeTest

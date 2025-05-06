@@ -6,7 +6,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import logic.usecases.clothesSuggester.GetClothingSuggestionUseCase
+import logic.usecases.clothessuggester.GetClothingSuggestionUseCase
 import logic.model.Cloth
 import logic.usecases.location.GetCoordinateByCityAndCountryUseCase
 import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase

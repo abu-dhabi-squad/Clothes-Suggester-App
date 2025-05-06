@@ -1,4 +1,4 @@
-package logic.clothesSuggester
+package logic.usecases.clothessuggester
 
 import com.google.common.truth.Truth.assertThat
 import helper.createWeather
@@ -7,7 +7,6 @@ import logic.exception.NoMatchingClothesFoundException
 import logic.exception.MissingTemperaturesException
 import logic.model.*
 import logic.repository.ClothesRepository
-import logic.usecases.clothesSuggester.GetClothingSuggestionUseCase
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

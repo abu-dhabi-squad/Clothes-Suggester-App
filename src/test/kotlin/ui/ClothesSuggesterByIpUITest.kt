@@ -5,7 +5,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import logic.model.Cloth
 import logic.model.ClothType
-import logic.usecases.clothesSuggester.SuggestClothesUseCase
+import logic.usecases.clothessuggester.SuggestClothesUseCase
 import logic.usecases.location.GetCoordinateByIpUseCase
 import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
 import org.junit.jupiter.api.BeforeEach

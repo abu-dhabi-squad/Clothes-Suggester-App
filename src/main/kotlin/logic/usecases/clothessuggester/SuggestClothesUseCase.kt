@@ -1,4 +1,4 @@
-package logic.usecases.clothesSuggester
+package logic.usecases.clothessuggester
 
 import logic.model.Cloth
 import logic.model.ClothType

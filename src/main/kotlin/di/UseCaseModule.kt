@@ -1,8 +1,8 @@
 package di
 
-import logic.usecases.clothesSuggester.GetClothingSuggestionUseCase
+import logic.usecases.clothessuggester.GetClothingSuggestionUseCase
 import org.koin.dsl.module
-import logic.usecases.clothesSuggester.SuggestClothesUseCase
+import logic.usecases.clothessuggester.SuggestClothesUseCase
 import logic.usecases.location.GetCoordinateByCityAndCountryUseCase
 import logic.usecases.location.GetCoordinateByIpUseCase
 import logic.usecases.weather.GetDailyWeatherByCoordinateUseCase
